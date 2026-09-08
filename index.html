@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Goodness of Hemp | Creative Library</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #eeeeea;
+      color: #171b16;
+      font: 16px/1.45 Arial, Helvetica, sans-serif;
+    }
+
+    .site-header {
+      background: #080a07;
+      color: #ffffff;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      max-width: 1200px;
+      min-height: 76px;
+      margin: 0 auto;
+      padding: 12px 22px;
+    }
+
+    .brand-logo {
+      display: block;
+      width: 92px;
+      height: auto;
+      max-height: 72px;
+    }
+
+    .header-copy {
+      text-align: right;
+    }
+
+    .header-copy p,
+    .header-copy h1 {
+      margin: 0;
+    }
+
+    .header-copy p {
+      color: #d9dfcf;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .header-copy h1 {
+      margin-top: 1px;
+      font-size: 25px;
+      line-height: 1.1;
+    }
+
+    .lime-line {
+      height: 4px;
+      background: #bed63a;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 22px 34px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      padding: 16px;
+      background: #ffffff;
+      border: 1px solid #d7d7d0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    select {
+      width: 100%;
+      min-height: 42px;
+      padding: 9px 10px;
+      border: 1px solid #9da193;
+      border-radius: 4px;
+      background: #ffffff;
+      color: #171b16;
+      font: inherit;
+    }
+
+    .selection-summary {
+      margin: 12px 0 16px;
+      color: #4e554b;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .thumbnail-panel,
+    .preview-panel {
+      background: #ffffff;
+      border: 1px solid #d7d7d0;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid #e5e5de;
+    }
+
+    .panel-header h2 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .panel-header p {
+      margin: 0;
+      color: #666b60;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .thumbnail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+      gap: 10px;
+      padding: 12px;
+      max-height: calc(100vh - 240px);
+      overflow: auto;
+    }
+
+    .thumbnail-button {
+      display: grid;
+      grid-template-rows: 112px auto;
+      gap: 8px;
+      width: 100%;
+      min-height: 162px;
+      padding: 8px;
+      border: 1px solid #d8d8d1;
+      border-radius: 4px;
+      background: #ffffff;
+      color: #171b16;
+      cursor: pointer;
+      text-align: left;
+      font: inherit;
+    }
+
+    .thumbnail-button:hover,
+    .thumbnail-button:focus-visible {
+      border-color: #7d872a;
+      outline: none;
+    }
+
+    .thumbnail-button.is-active {
+      border-color: #245000;
+      box-shadow: 0 0 0 2px #bed63a;
+    }
+
+    .thumbnail-frame {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+      background: #f6f6f1;
+      border: 1px solid #e7e7df;
+    }
+
+    .thumbnail-frame img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .thumbnail-label {
+      display: block;
+      min-height: 34px;
+      color: #2f342e;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+    }
+
+    .preview-frame {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 360px;
+      padding: 22px;
+      overflow: auto;
+      background: #f7f7f3;
+      border-bottom: 1px solid #e5e5de;
+    }
+
+    .preview-frame img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 66vh;
+    }
+
+    .preview-details {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: start;
+      padding: 15px 16px 16px;
+    }
+
+    .preview-name {
+      margin: 0 0 4px;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .filename,
+    .dimensions {
+      margin: 0;
+      color: #555b51;
+      overflow-wrap: anywhere;
+    }
+
+    .filename {
+      font-weight: 700;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid #245000;
+      border-radius: 4px;
+      color: #245000;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .actions a:hover,
+    .actions a:focus-visible {
+      background: #eef4e8;
+    }
+
+    .empty {
+      padding: 24px;
+      color: #555b51;
+    }
+
+    @media (max-width: 920px) {
+      .controls {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .thumbnail-grid {
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .header-inner {
+        align-items: flex-start;
+        min-height: 0;
+        padding: 11px 16px;
+      }
+
+      .brand-logo {
+        width: 72px;
+      }
+
+      .header-copy h1 {
+        font-size: 21px;
+      }
+
+      .header-copy p {
+        font-size: 11px;
+      }
+
+      main {
+        padding: 16px 14px 28px;
+      }
+
+      .controls,
+      .preview-details {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-frame {
+        min-height: 260px;
+        padding: 14px;
+      }
+
+      .actions {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <img class="brand-logo" src="assets/goh-logo-white.png" alt="The Goodness of Hemp">
+      <div class="header-copy">
+        <p>Prepared for Surfside</p>
+        <h1>Creative Library</h1>
+      </div>
+    </div>
+    <div class="lime-line" aria-hidden="true"></div>
+  </header>
+
+  <main>
+    <section class="controls" aria-label="Gallery filters">
+      <div>
+        <label for="formatSelect">Format</label>
+        <select id="formatSelect"></select>
+      </div>
+
+      <div>
+        <label for="campaignSelect">Campaign</label>
+        <select id="campaignSelect"></select>
+      </div>
+
+      <div>
+        <label for="collectionSelect">Design Collection</label>
+        <select id="collectionSelect"></select>
+      </div>
+
+      <div>
+        <label for="sizeSelect">Size</label>
+        <select id="sizeSelect"></select>
+      </div>
+    </section>
+
+    <p class="selection-summary" id="selectionSummary"></p>
+
+    <section class="gallery" aria-label="Creative gallery">
+      <div class="thumbnail-panel">
+        <div class="panel-header">
+          <h2>Available Ads</h2>
+          <p id="thumbnailCount"></p>
+        </div>
+        <div class="thumbnail-grid" id="thumbnailGrid"></div>
+      </div>
+
+      <div class="preview-panel" aria-live="polite">
+        <div class="preview-frame" id="previewFrame">
+          <img id="previewImage" alt="">
+        </div>
+        <div class="preview-details">
+          <div>
+            <h2 class="preview-name" id="previewName"></h2>
+            <p class="filename" id="filename"></p>
+            <p class="dimensions" id="dimensions"></p>
+          </div>
+          <div class="actions">
+            <a id="fullSizeLink" href="#">View full size</a>
+            <a id="downloadLink" href="#" download>Download image</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="gallery-data.js"></script>
+  <script>
+    (() => {
+      const source = window.GOH_GALLERY_DATA || {};
+      const items = Array.isArray(source) ? source : source.items || [];
+      const formatOrder = ['Display Ads', 'Social Media'];
+      const campaignOrder = ['Read the Framework', 'Plan. Don\\u2019t Ban.'];
+      const collectionOrder = ['Black treatment', 'Light treatment', 'Display - No CTA'];
+      const sizeOrder = ['320x50', '970x250', '160x600', '728x90', '300x600', '300x250', '320x480', '319x480', '1080x1350'];
+
+      const formatSelect = document.getElementById('formatSelect');
+      const campaignSelect = document.getElementById('campaignSelect');
+      const collectionSelect = document.getElementById('collectionSelect');
+      const sizeSelect = document.getElementById('sizeSelect');
+      const selectionSummary = document.getElementById('selectionSummary');
+      const thumbnailGrid = document.getElementById('thumbnailGrid');
+      const thumbnailCount = document.getElementById('thumbnailCount');
+      const previewImage = document.getElementById('previewImage');
+      const previewName = document.getElementById('previewName');
+      const filename = document.getElementById('filename');
+      const dimensions = document.getElementById('dimensions');
+      const fullSizeLink = document.getElementById('fullSizeLink');
+      const downloadLink = document.getElementById('downloadLink');
+
+      let activePath = '';
+
+      const rank = (order, value) => {
+        const index = order.indexOf(value);
+        return index === -1 ? order.length : index;
+      };
+
+      const option = (value) => {
+        const node = document.createElement('option');
+        node.value = value;
+        node.textContent = value;
+        return node;
+      };
+
+      const setOptions = (select, values, previousValue) => {
+        select.textContent = '';
+        values.forEach((value) => select.appendChild(option(value)));
+        select.disabled = values.length === 0;
+        select.value = values.includes(previousValue) ? previousValue : values[0] || '';
+      };
+
+      const unique = (list, key) => [...new Set(list.map((item) => item[key]))];
+
+      const matches = (item) => {
+        return item.format === formatSelect.value &&
+          item.campaign === campaignSelect.value &&
+          item.collection === collectionSelect.value &&
+          item.size === sizeSelect.value;
+      };
+
+      const sortedItems = (list) => [...list].sort((a, b) => {
+        return a.sortOrder - b.sortOrder || a.label.localeCompare(b.label) || a.filename.localeCompare(b.filename);
+      });
+
+      const populateFormats = () => {
+        const values = unique(items, 'format').sort((a, b) => rank(formatOrder, a) - rank(formatOrder, b) || a.localeCompare(b));
+        setOptions(formatSelect, values, formatSelect.value);
+      };
+
+      const populateCampaigns = () => {
+        const available = items.filter((item) => item.format === formatSelect.value);
+        const values = unique(available, 'campaign').sort((a, b) => rank(campaignOrder, a) - rank(campaignOrder, b) || a.localeCompare(b));
+        setOptions(campaignSelect, values, campaignSelect.value);
+      };
+
+      const populateCollections = () => {
+        const available = items.filter((item) => item.format === formatSelect.value && item.campaign === campaignSelect.value);
+        const values = unique(available, 'collection').sort((a, b) => rank(collectionOrder, a) - rank(collectionOrder, b) || a.localeCompare(b));
+        setOptions(collectionSelect, values, collectionSelect.value);
+      };
+
+      const populateSizes = () => {
+        const available = items.filter((item) => {
+          return item.format === formatSelect.value &&
+            item.campaign === campaignSelect.value &&
+            item.collection === collectionSelect.value;
+        });
+        const values = unique(available, 'size').sort((a, b) => rank(sizeOrder, a) - rank(sizeOrder, b) || a.localeCompare(b));
+        setOptions(sizeSelect, values, sizeSelect.value);
+      };
+
+      const selectItem = (item) => {
+        activePath = item.path;
+        previewImage.src = item.path;
+        previewImage.width = item.width;
+        previewImage.height = item.height;
+        previewImage.alt = item.label;
+        previewName.textContent = item.label;
+        filename.textContent = item.filename;
+        dimensions.textContent = `${item.width} x ${item.height} px`;
+        fullSizeLink.href = item.path;
+        downloadLink.href = item.path;
+        downloadLink.download = item.filename;
+
+        [...thumbnailGrid.querySelectorAll('.thumbnail-button')].forEach((button) => {
+          button.classList.toggle('is-active', button.dataset.path === activePath);
+        });
+      };
+
+      const renderThumbnails = () => {
+        const list = sortedItems(items.filter(matches));
+        thumbnailGrid.textContent = '';
+        thumbnailCount.textContent = `${list.length} ${list.length === 1 ? 'image' : 'images'}`;
+        selectionSummary.textContent = [formatSelect.value, campaignSelect.value, collectionSelect.value, sizeSelect.value].filter(Boolean).join(' | ');
+
+        if (!list.length) {
+          thumbnailGrid.innerHTML = '<p class="empty">No images are available for this selection.</p>';
+          previewImage.removeAttribute('src');
+          previewImage.alt = '';
+          previewName.textContent = '';
+          filename.textContent = '';
+          dimensions.textContent = '';
+          fullSizeLink.removeAttribute('href');
+          downloadLink.removeAttribute('href');
+          return;
+        }
+
+        list.forEach((item) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'thumbnail-button';
+          button.dataset.path = item.path;
+          button.setAttribute('aria-label', `Preview ${item.label}`);
+
+          const frame = document.createElement('span');
+          frame.className = 'thumbnail-frame';
+
+          const image = document.createElement('img');
+          image.src = item.path;
+          image.width = item.width;
+          image.height = item.height;
+          image.loading = 'lazy';
+          image.alt = '';
+
+          const label = document.createElement('span');
+          label.className = 'thumbnail-label';
+          label.textContent = item.label;
+
+          frame.appendChild(image);
+          button.appendChild(frame);
+          button.appendChild(label);
+          button.addEventListener('click', () => selectItem(item));
+          thumbnailGrid.appendChild(button);
+        });
+
+        const selected = list.find((item) => item.path === activePath) || list[0];
+        selectItem(selected);
+      };
+
+      const refreshFromFormat = () => {
+        activePath = '';
+        populateCampaigns();
+        populateCollections();
+        populateSizes();
+        renderThumbnails();
+      };
+
+      const refreshFromCampaign = () => {
+        activePath = '';
+        populateCollections();
+        populateSizes();
+        renderThumbnails();
+      };
+
+      const refreshFromCollection = () => {
+        activePath = '';
+        populateSizes();
+        renderThumbnails();
+      };
+
+      formatSelect.addEventListener('change', refreshFromFormat);
+      campaignSelect.addEventListener('change', refreshFromCampaign);
+      collectionSelect.addEventListener('change', refreshFromCollection);
+      sizeSelect.addEventListener('change', () => {
+        activePath = '';
+        renderThumbnails();
+      });
+
+      if (!items.length) {
+        selectionSummary.textContent = 'No images found.';
+        [formatSelect, campaignSelect, collectionSelect, sizeSelect].forEach((select) => {
+          select.disabled = true;
+        });
+        renderThumbnails();
+        return;
+      }
+
+      populateFormats();
+      refreshFromFormat();
+    })();
+  </script>
+</body>
+</html>

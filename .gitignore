@@ -1,0 +1,8 @@
+*.zip
+.DS_Store
+downloads/
+03-Previews/
+START-HERE.html
+READ-ME.txt
+export-manifest.csv
+export-manifest.json
