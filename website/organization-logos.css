@@ -1,0 +1,184 @@
+/* Authoritative GOH organization-logo wall.
+   This component deliberately omits the legacy .logo-wall class so older fixed
+   logo rules cannot participate in sizing. */
+.goh-logo-wall-container {
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  container: gohLogoWall / inline-size;
+}
+
+.goh-organization-wall {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line, #dedad4);
+  background: #fff;
+  list-style: none;
+}
+
+.goh-organization-wall > .goh-organization-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  inline-size: auto;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  min-block-size: 214px;
+  block-size: auto;
+  margin: 0;
+  padding: 24px clamp(12px, 2vw, 22px) 22px;
+  border: 0;
+  border-inline-end: 1px solid var(--line, #dedad4);
+  border-block-end: 1px solid var(--line, #dedad4);
+  background: #fff;
+  text-align: center;
+}
+
+.goh-organization-card .goh-logo-frame {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  inline-size: 100%;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  block-size: 108px;
+  min-block-size: 0;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.goh-organization-wall .goh-logo-frame > img[data-logo] {
+  display: block;
+  box-sizing: border-box;
+  flex: 0 1 auto;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  max-width: min(100%, var(--goh-logo-max, 210px));
+  max-height: min(100%, var(--goh-logo-height, 98px));
+  margin: 0;
+  padding: 0;
+  border: 0;
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+}
+
+.goh-logo-frame [data-logo="bish-enterprises"] { --goh-logo-max: 150px; --goh-logo-height: 102px; }
+.goh-logo-frame [data-logo="hemi"] { --goh-logo-max: 182px; --goh-logo-height: 103px; }
+.goh-logo-frame [data-logo="sorse"] { --goh-logo-max: 204px; --goh-logo-height: 90px; }
+.goh-logo-frame [data-logo="americhanvre"] { --goh-logo-max: 218px; --goh-logo-height: 106px; }
+.goh-logo-frame [data-logo="ushba"] { --goh-logo-max: 158px; --goh-logo-height: 100px; }
+.goh-logo-frame [data-logo="wherehouse-beverage"] { --goh-logo-max: 114px; --goh-logo-height: 92px; }
+.goh-logo-frame [data-logo="hemp-harvest-works"] { --goh-logo-max: 225px; --goh-logo-height: 97px; }
+.goh-logo-frame [data-logo="hita-az"],
+.goh-logo-frame [data-logo="bison-biocomposites"] { --goh-logo-height: 100px; }
+.goh-logo-frame [data-logo="hfc"] { --goh-logo-height: 101px; }
+
+.goh-organization-wall .goh-organization-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 3px 2px;
+  color: var(--ink, #242222);
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: center;
+  text-decoration: underline;
+  text-decoration-color: #aaa299;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.goh-organization-wall .goh-organization-link:hover {
+  color: #59534b;
+  text-decoration-color: currentColor;
+}
+
+.goh-organization-wall .goh-organization-link:focus-visible {
+  outline: 3px solid #7c8b3d;
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+.goh-organization-wall .goh-link-destination {
+  max-width: 100%;
+  margin-top: 5px;
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--muted, #766f67);
+  overflow-wrap: anywhere;
+}
+
+.goh-organization-wall .goh-organization-card[hidden] { display: none !important; }
+
+@media (min-width: 380px) {
+  .goh-organization-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 756px) {
+  .goh-organization-wall { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1056px) {
+  .goh-organization-wall { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@container gohLogoWall (min-width: 0px) {
+  .goh-organization-wall { grid-template-columns: minmax(0, 1fr); }
+}
+
+@container gohLogoWall (min-width: 280px) {
+  .goh-organization-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@container gohLogoWall (min-width: 660px) {
+  .goh-organization-wall { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@container gohLogoWall (min-width: 960px) {
+  .goh-organization-wall { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@container gohLogoWall (max-width: 659px) {
+  .goh-organization-wall > .goh-organization-card {
+    min-block-size: 198px;
+    padding: 20px 12px;
+  }
+
+  .goh-organization-card .goh-logo-frame {
+    block-size: 92px;
+    margin-bottom: 14px;
+  }
+
+  .goh-organization-wall .goh-organization-link { font-size: 12px; }
+}
+
+@media print {
+  .goh-logo-wall-container { container-type: normal; }
+  .goh-organization-wall { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .goh-organization-wall > .goh-organization-card { break-inside: avoid; }
+}
