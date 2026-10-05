@@ -172,12 +172,12 @@
   }
 
   function comparisonDesktop(data) {
-    return `<div class="comparison-table-wrap"><table class="comparison-table"><thead><tr><th scope="col">Provision in the dated source</th>${data.columns.map(col => `<th scope="col">${esc(col.label)}${col.billIdentifierAsPrinted ? `<br><span class="micro">${esc(col.billIdentifierAsPrinted)}</span>` : ''}</th>`).join('')}</tr></thead><tbody>${data.rows.map(row => `<tr><th scope="row">${esc(row.labelAsPrinted)}</th>${data.columns.map(col => `<td>${comparisonMark(row.cells[col.id])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    return `<div class="comparison-table-wrap"><table class="comparison-table"><thead><tr><th scope="col">Provision in the dated source</th>${data.columns.map(col => `<th scope="col"${col.id === 'goh' ? ' class="comparison-goh"' : ''}>${esc(col.label)}${col.billIdentifierAsPrinted ? `<br><span class="micro">${esc(col.billIdentifierAsPrinted)}</span>` : ''}</th>`).join('')}</tr></thead><tbody>${data.rows.map(row => `<tr><th scope="row">${esc(row.labelAsPrinted)}</th>${data.columns.map(col => `<td${col.id === 'goh' ? ' class="comparison-goh"' : ''}>${comparisonMark(row.cells[col.id])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
   }
 
   function comparisonMobile(data, selected = data.columns[1].id) {
     const competitor = data.columns.find(col => col.id === selected) || data.columns[1];
-    return `<div class="comparison-mobile"><label>Compare GOH with<select id="comparison-select">${data.columns.slice(1).map(col => `<option value="${esc(col.id)}"${col.id === competitor.id ? ' selected' : ''}>${esc(col.label)}</option>`).join('')}</select></label><div id="comparison-mobile-table"><table><thead><tr><th>Provision</th><th>GOH</th><th>${esc(competitor.label)}</th></tr></thead><tbody>${data.rows.map(row => `<tr><th scope="row">${esc(row.labelAsPrinted)}</th><td>${comparisonMark(row.cells.goh)}</td><td>${comparisonMark(row.cells[competitor.id])}</td></tr>`).join('')}</tbody></table></div></div>`;
+    return `<div class="comparison-mobile"><label>Compare GOH with<select id="comparison-select">${data.columns.slice(1).map(col => `<option value="${esc(col.id)}"${col.id === competitor.id ? ' selected' : ''}>${esc(col.label)}</option>`).join('')}</select></label><div id="comparison-mobile-table"><table><thead><tr><th>Provision</th><th class="comparison-goh">GOH</th><th>${esc(competitor.label)}</th></tr></thead><tbody>${data.rows.map(row => `<tr><th scope="row">${esc(row.labelAsPrinted)}</th><td class="comparison-goh">${comparisonMark(row.cells.goh)}</td><td>${comparisonMark(row.cells[competitor.id])}</td></tr>`).join('')}</tbody></table></div></div>`;
   }
 
   function comparisonContent(data) {
@@ -286,7 +286,7 @@
       const holder = document.querySelector('#comparison-mobile-table');
       const competitor = comparison?.columns.find(col => col.id === event.target.value);
       if (!holder || !competitor) return;
-      holder.innerHTML = `<table><thead><tr><th>Provision</th><th>GOH</th><th>${esc(competitor.label)}</th></tr></thead><tbody>${comparison.rows.map(row => `<tr><th scope="row">${esc(row.labelAsPrinted)}</th><td>${comparisonMark(row.cells.goh)}</td><td>${comparisonMark(row.cells[competitor.id])}</td></tr>`).join('')}</tbody></table>`;
+      holder.innerHTML = `<table><thead><tr><th>Provision</th><th class="comparison-goh">GOH</th><th>${esc(competitor.label)}</th></tr></thead><tbody>${comparison.rows.map(row => `<tr><th scope="row">${esc(row.labelAsPrinted)}</th><td class="comparison-goh">${comparisonMark(row.cells.goh)}</td><td>${comparisonMark(row.cells[competitor.id])}</td></tr>`).join('')}</tbody></table>`;
     });
   };
 
