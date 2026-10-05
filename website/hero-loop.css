@@ -1,0 +1,213 @@
+/* The supplied GOH loop is presentation media: silent, decorative, and full-bleed. */
+.video-hero {
+  position: relative;
+  display: block;
+  min-height: clamp(620px, 78vh, 780px);
+  overflow: hidden;
+  isolation: isolate;
+  background: #161713;
+}
+
+.video-hero .hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.video-hero .hero-video-frame {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  aspect-ratio: auto;
+  background: #161713;
+}
+
+.video-hero .hero-video-frame::after {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(14, 16, 11, .83) 0%, rgba(14, 16, 11, .70) 38%, rgba(14, 16, 11, .18) 70%, rgba(14, 16, 11, .08) 100%),
+    linear-gradient(0deg, rgba(12, 13, 10, .28), transparent 45%);
+}
+
+#hero-poster,
+#hero-video-mount,
+#hero-loop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#hero-poster,
+#hero-loop {
+  object-fit: cover;
+  object-position: center center;
+}
+
+#hero-loop {
+  display: block;
+  border: 0;
+}
+
+.hero-video-frame.video-playing #hero-video-mount {
+  z-index: 2;
+}
+
+.video-hero .hero-copy {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: min(760px, 100%);
+  min-height: inherit;
+  padding-top: 82px;
+  padding-right: 56px;
+  padding-bottom: 84px;
+  color: #fff;
+}
+
+.video-hero .hero-copy .kicker {
+  color: var(--lime);
+}
+
+.video-hero .hero-copy .intro,
+.video-hero .hero-footnote {
+  color: rgba(255, 255, 255, .88);
+  text-shadow: 0 1px 18px rgba(0, 0, 0, .28);
+}
+
+.video-hero .hero-copy .intro {
+  max-width: 510px;
+  font-size: 17px;
+}
+
+.video-hero .hero-copy h1 {
+  max-width: 630px;
+  font-size: clamp(48px, 5.7vw, 82px);
+  line-height: .98;
+  text-wrap: balance;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, .26);
+}
+
+.video-hero .btn.outline {
+  border-color: rgba(255, 255, 255, .84);
+  color: #fff;
+  background: rgba(17, 18, 15, .2);
+  backdrop-filter: blur(7px);
+}
+
+.video-hero .btn.outline:hover {
+  background: rgba(255, 255, 255, .15);
+}
+
+.video-hero .video-fallback {
+  z-index: 4;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0 34px 31px 0;
+  background: transparent;
+}
+
+.video-hero .video-fallback .btn {
+  min-height: 42px;
+  padding: 10px 15px;
+  font-size: 10px;
+  color: #fff;
+  border-color: rgba(255, 255, 255, .75);
+  background: rgba(20, 21, 18, .62);
+  backdrop-filter: blur(8px);
+}
+
+.video-hero .video-control-row {
+  position: absolute;
+  right: 34px;
+  bottom: 31px;
+  z-index: 5;
+  margin: 0;
+}
+
+.video-hero .video-control-row > div:first-child,
+.video-hero #video-sound,
+.video-hero .video-external {
+  display: none;
+}
+
+.video-hero .video-controls .btn {
+  min-height: 42px;
+  padding: 10px 15px;
+  color: #fff;
+  border-color: rgba(255, 255, 255, .75);
+  background: rgba(20, 21, 18, .62);
+  backdrop-filter: blur(8px);
+}
+
+@media (max-width: 850px) {
+  .video-hero {
+    display: block;
+    min-height: 680px;
+  }
+
+  .video-hero .hero-copy {
+    justify-content: flex-end;
+    width: min(680px, 100%);
+    min-height: inherit;
+    padding: 74px 34px 112px;
+  }
+
+  .video-hero .hero-copy h1 {
+    max-width: 560px;
+    font-size: clamp(48px, 9.2vw, 70px);
+  }
+
+  .video-hero .hero-video-frame::after {
+    background:
+      linear-gradient(0deg, rgba(12, 14, 10, .88) 0%, rgba(12, 14, 10, .64) 50%, rgba(12, 14, 10, .14) 100%),
+      linear-gradient(90deg, rgba(12, 14, 10, .38), transparent 70%);
+  }
+}
+
+@media (max-width: 600px) {
+  .video-hero {
+    min-height: 700px;
+  }
+
+  .video-hero .hero-copy {
+    padding: 88px 24px 118px;
+  }
+
+  .video-hero .hero-copy h1 {
+    max-width: 360px;
+    font-size: clamp(46px, 14vw, 60px);
+  }
+
+  .video-hero .hero-copy .intro {
+    max-width: 360px;
+    font-size: 15px;
+  }
+
+  .video-hero .hero-copy .button-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .video-hero .video-fallback,
+  .video-hero .video-control-row {
+    right: auto;
+    bottom: 24px;
+    left: 24px;
+    padding: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #hero-poster {
+    transition: none;
+  }
+}
