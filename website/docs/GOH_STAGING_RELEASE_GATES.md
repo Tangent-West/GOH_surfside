@@ -11,9 +11,12 @@ The branch is suitable for review and handoff. It is intentionally `noindex,nofo
 - [x] Homepage, supporter directory, media, shop, campaign, framework, comparison, donation, and educational routes render without horizontal overflow.
 - [x] Official original-site G favicon installed.
 - [x] Cream merchandise, flying disc, Plan. Don’t Ban., USDA facts, and global-supply-chain language integrated.
+- [x] Compact taupe orientation strip and original Grain / Fiber / Floral pathway section restored once in the requested homepage order.
+- [x] Four USDA facts, six application groups, homepage comparison entries, click-to-play film, and responsive 18-logo wall retained as separate components.
+- [x] Donate and Tell Congress open shared in-page staging dialogs without charging or sending.
 - [x] Staging has no automated form submission, advocacy submission, payment, or public full-framework download.
 - [x] Desktop, tablet, and mobile screenshots captured.
-- [x] Automated browser audit: 96 of 96 checks passed.
+- [x] Automated browser audit: 182 of 182 checks passed across 360, 390, 768, 1024, and 1440 CSS-pixel widths, plus enlarged-text and interaction checks.
 
 ## Content, policy, and permission dependencies
 
@@ -25,6 +28,7 @@ The branch is suitable for review and handoff. It is intentionally `noindex,nofo
 - [ ] Shop owner confirms product names, materials (especially the flying disc), pricing, sizes, inventory, fulfillment, and approved product photography.
 - [ ] Donation owner supplies the receiving legal entity, payment destination, approved appeal copy, privacy terms, and tax language. No tax-deductibility claim should be added without confirmation.
 - [ ] Campaign owner confirms the NHA Tell Congress route and Plan. Don’t Ban. destination immediately before launch.
+- [ ] Recover and connect the approved original donation checkout and advocacy-provider embed/configuration; the present staging dialogs intentionally use a disabled payment shell and verified external action fallback.
 
 ## Production and backend dependencies
 

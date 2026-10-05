@@ -11,6 +11,7 @@
   const originalMedia = routes['/media'];
   const originalShop = routes['/shop'];
   let comparison = null;
+  let pendingRouteTarget = null;
 
   const source = (url, label) => `<a class="source-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)} <span aria-hidden="true">↗</span></a>`;
   const summary = () => '<a class="btn lime" href="#/framework">Policy Summary <span aria-hidden="true">↗</span></a>';
@@ -19,6 +20,58 @@
 
   function facts() {
     return `<section class="section goh-facts" id="hemp-facts" aria-labelledby="facts-heading"><div class="wrap"><div class="section-top"><div><p class="kicker">AMERICAN HEMP · 2025 USDA DATA</p><h2 id="facts-heading">The agricultural foundation.<br><span class="light">The opportunity ahead.</span></h2></div><p>Start with what American farmers are producing today.</p></div><div class="fact-grid">${C.facts.map(f => `<article class="fact-card"><div class="fact-number">${f.display}</div><div class="fact-unit">${f.unit}</div><h3>${f.title}</h3><p>${f.copy}</p><p class="fact-scope">2025 · ${esc(f.scope)}</p>${source(`${C.sources.usda}#page=${f.page}`, 'USDA source')}</article>`).join('')}</div><p class="source-note">These are agricultural production figures, not retail sales or the value of the entire hemp supply chain. The $739 million includes outdoor and under-protection production; acreage, fiber and grain figures cover outdoor production.</p><p class="source-note">Source: USDA NASS, <em>National Hemp Report</em>, released April 16, 2026. ${source(C.sources.usda, 'Read the report')}</p></div></section>`;
+  }
+
+  function comparisonInvitation() {
+    return `<section class="comparison-invitation" aria-labelledby="home-comparison-heading"><div class="wrap comparison-invitation-inner"><div><p class="kicker">DATED POLICY COMPARISON · SEPTEMBER 14, 2026</p><h2 id="home-comparison-heading">Compare Hemp Proposals.</h2></div><div><p>Compare selected provisions across GOH and other federal hemp proposals.</p><p class="source-note">National Hemp Association reference · Marked and unmarked cells are reproduced literally; unmarked does not mean opposition or absence.</p></div><a class="btn outline" href="#/framework/compare" data-open-comparison>View comparison <span aria-hidden="true">↗</span></a></div></section>`;
+  }
+
+  function restoreOrientationStrip(template) {
+    const strip = template.content.querySelector('.stats-strip');
+    if (!strip) return '';
+    strip.classList.add('orientation-strip');
+    strip.setAttribute('aria-label', 'Explore the Goodness of Hemp');
+    const tiles = [...strip.querySelectorAll('.stats-grid > div')].slice(1);
+    const destinations = [
+      { href: '#hemp-production-pathways', attribute: 'data-scroll-target="hemp-production-pathways"', label: 'Jump to the three hemp production pathways' },
+      { href: '#/framework', attribute: 'data-route-target="policy-pillars"', label: 'Read the ten proposed policy pillars' },
+      { href: '#/join', attribute: '', label: 'Open the organization participation form' }
+    ];
+    tiles.forEach((tile, index) => {
+      const destination = destinations[index];
+      if (!destination) return;
+      tile.innerHTML = `<a class="orientation-link" href="${destination.href}" ${destination.attribute} aria-label="${destination.label}">${tile.innerHTML}</a>`;
+    });
+    return strip.outerHTML;
+  }
+
+  function restoreProductionPathways(template) {
+    const section = template.content.querySelector('.cards-three')?.closest('section');
+    if (!section) return '';
+    section.id = 'hemp-production-pathways';
+    section.classList.add('production-pathways');
+    section.setAttribute('aria-labelledby', 'production-pathways-heading');
+    const heading = section.querySelector('h2');
+    if (heading) heading.id = 'production-pathways-heading';
+    const cards = [...section.querySelectorAll('.photo-card')];
+    cards.forEach(card => card.classList.add('pathway-card'));
+    const links = cards.map(card => card.querySelector('.text-link'));
+    if (links[0]) links[0].href = '#/learn/food-nutrition';
+    if (links[1]) links[1].href = '#/learn/fiber-manufacturing';
+    if (links[2]) links[2].href = '#/framework';
+    return section.outerHTML;
+  }
+
+  function restoreFilm(template) {
+    const film = template.content.querySelector('.video-strip');
+    if (!film) return '';
+    film.classList.add('home-film');
+    film.setAttribute('aria-labelledby', 'home-film-heading');
+    const heading = film.querySelector('h2');
+    if (heading) heading.id = 'home-film-heading';
+    const watch = film.querySelector('.copy [data-video]');
+    if (watch) watch.innerHTML = 'Watch the film <span aria-hidden="true">▶</span>';
+    return film.outerHTML;
   }
 
   function sectors() {
@@ -50,7 +103,7 @@
   }
 
   function action() {
-    return `<section class="section action-panel" id="take-action"><div class="wrap"><div class="section-top"><div><p class="kicker">PLAN. DON’T BAN.</p><h2>Learn. Participate.<br><span class="light">Make your voice heard.</span></h2></div><p>Understand the proposed framework, learn about the campaign, contact Congress through the NHA action route, or bring your organization into the initiative.</p></div><div class="button-row">${summary()}${request()}<a class="btn outline" href="#/plan-dont-ban">Plan. Don’t Ban. ↗</a><a class="btn outline" href="${esc(C.actionURL)}" target="_blank" rel="noopener noreferrer">Tell Congress ↗</a></div><p class="source-note">Policy advocacy is led by the National Hemp Association. Opening the action provider does not submit a message.</p><div class="button-row"><a class="text-link" href="#/join">Participation ↗</a><a class="text-link" href="#/toolkit">Campaign materials ↗</a><a class="text-link" href="#/donate">Donate ↗</a></div></div></section>`;
+    return `<section class="section action-panel" id="take-action"><div class="wrap"><div class="section-top"><div><p class="kicker">PLAN. DON’T BAN.</p><h2>Learn. Participate.<br><span class="light">Make your voice heard.</span></h2></div><p>Understand the proposed framework, learn about the campaign, contact Congress through the NHA action route, or bring your organization into the initiative.</p></div><div class="button-row">${summary()}${request()}<a class="btn outline" href="#/plan-dont-ban">Plan. Don’t Ban. ↗</a><a class="btn outline" href="${esc(C.actionURL)}" target="_blank" rel="noopener noreferrer" data-open-action>Tell Congress ↗</a></div><p class="source-note">Policy advocacy is led by the National Hemp Association. Opening the action provider does not submit a message.</p><div class="button-row"><a class="text-link" href="#/join">Participation ↗</a><a class="text-link" href="#/toolkit">Campaign materials ↗</a><a class="text-link" href="#/donate" data-open-donate>Donate ↗</a></div></div></section>`;
   }
 
   function newHome() {
@@ -64,7 +117,11 @@
     if (kicker) kicker.textContent = 'ONE PLANT. MANY BENEFITS.';
     const intro = heroSection.querySelector('.hero-copy .intro');
     if (intro) intro.textContent = 'Explore the whole American hemp industry—from farms and processing to products and research—ready to grow into global supply chains.';
-    return heroSection.outerHTML + facts() + applications() + needs() + benefits() + who() + action();
+    row?.insertAdjacentHTML('afterend', '<a class="text-link hero-comparison-link" href="#/framework/compare" data-open-comparison>Compare Hemp Proposals <span aria-hidden="true">↗</span></a>');
+    const orientation = restoreOrientationStrip(template);
+    const pathways = restoreProductionPathways(template);
+    const film = restoreFilm(template);
+    return heroSection.outerHTML + orientation + facts() + comparisonInvitation() + pathways + applications() + film + needs() + benefits() + who() + action();
   }
 
   function chapters() {
@@ -92,11 +149,22 @@
   }
 
   function planDontBan() {
-    return hero('Plan. Don’t Ban.', 'Plan. Don’t Ban.<br><span class="light">Protect farmers. Set clear rules.</span>', 'A campaign for practical federal hemp policy that protects consumers while keeping lawful agricultural and manufacturing pathways open.') + `<section class="section"><div class="wrap campaign-grid"><div><p class="kicker">A PRACTICAL PATH FORWARD</p><h2>Regulate responsibly.<br><span class="light">Don’t erase an industry.</span></h2><p class="intro">Plan. Don’t Ban. asks policymakers to replace broad prohibition with clear categories, age controls, testing, traceability and enforceable product rules.</p><p>It also recognizes the farmers, processors, manufacturers, researchers and businesses building American capacity for domestic growth and global supply-chain participation.</p><div class="button-row"><a class="btn lime" href="${esc(C.actionURL)}" target="_blank" rel="noopener noreferrer">Tell Congress ↗</a><a class="btn outline" href="${esc(C.sources.planDontBan)}" target="_blank" rel="noopener noreferrer">Visit the NHA campaign ↗</a></div><p class="source-note">Advocacy is led by the National Hemp Association. Opening the action provider does not send a message; review its form before choosing whether to submit.</p></div><div class="campaign-points"><article><h3>Protect consumers</h3><p>Use testing, labels, packaging, traceability and age controls tailored to product categories.</p></article><article><h3>Protect farmers and manufacturing</h3><p>Keep lawful grain, fiber, floral and controlled work-in-process pathways distinct.</p></article><article><h3>Support American competitiveness</h3><p>Build consistent rules and infrastructure that can support trusted domestic and global markets.</p></article></div></div></section><section class="section paper"><div class="wrap"><div class="button-row">${summary()}${request()}<a class="text-link" href="#/toolkit">Campaign materials ↗</a><a class="text-link" href="#/framework/compare">Review the dated policy comparison ↗</a></div></div></section>`;
+    return hero('Plan. Don’t Ban.', 'Plan. Don’t Ban.<br><span class="light">Protect farmers. Set clear rules.</span>', 'A campaign for practical federal hemp policy that protects consumers while keeping lawful agricultural and manufacturing pathways open.') + `<section class="section"><div class="wrap campaign-grid"><div><p class="kicker">A PRACTICAL PATH FORWARD</p><h2>Regulate responsibly.<br><span class="light">Don’t erase an industry.</span></h2><p class="intro">Plan. Don’t Ban. asks policymakers to replace broad prohibition with clear categories, age controls, testing, traceability and enforceable product rules.</p><p>It also recognizes the farmers, processors, manufacturers, researchers and businesses building American capacity for domestic growth and global supply-chain participation.</p><div class="button-row"><a class="btn lime" href="${esc(C.actionURL)}" target="_blank" rel="noopener noreferrer" data-open-action>Tell Congress ↗</a><a class="btn outline" href="${esc(C.sources.planDontBan)}" target="_blank" rel="noopener noreferrer">Visit the NHA campaign ↗</a></div><p class="source-note">Advocacy is led by the National Hemp Association. Opening the action provider does not send a message; review its form before choosing whether to submit.</p></div><div class="campaign-points"><article><h3>Protect consumers</h3><p>Use testing, labels, packaging, traceability and age controls tailored to product categories.</p></article><article><h3>Protect farmers and manufacturing</h3><p>Keep lawful grain, fiber, floral and controlled work-in-process pathways distinct.</p></article><article><h3>Support American competitiveness</h3><p>Build consistent rules and infrastructure that can support trusted domestic and global markets.</p></article></div></div></section><section class="section paper"><div class="wrap"><div class="button-row">${summary()}${request()}<a class="text-link" href="#/toolkit">Campaign materials ↗</a><a class="text-link" href="#/framework/compare" data-open-comparison>Review the dated policy comparison ↗</a></div></div></section>`;
   }
 
   function donate() {
     return hero('Donate', 'Support the work.<br><span class="light">Keep the purpose clear.</span>', 'Help connect people with the Goodness of Hemp story through education, participation and practical policy discussion.') + `<section class="section"><div class="wrap"><div class="notice"><strong>Online contributions are not available from this page.</strong>The receiving organization, checkout destination and approved donation wording must be confirmed before contributions are collected. No tax-deductibility claim is made.</div><div class="button-row"><a class="btn" href="#/join">Participate as an organization ↗</a><a class="btn outline" href="#/toolkit">Share the campaign ↗</a><a class="text-link" href="#/plan-dont-ban">Learn about Plan. Don’t Ban. ↗</a></div></div></section>`;
+  }
+
+  function donationModal() {
+    const logo = document.querySelector('.brand img')?.getAttribute('src') || '';
+    const amounts = ['$50', '$100', '$250', '$500', '$1,000', '$2,500'];
+    return `<div class="donation-modal-shell"><div class="donation-message"><div class="donation-lockup"><strong>Support</strong><span aria-hidden="true"></span><img src="${esc(logo)}" alt="The Goodness of Hemp"></div><p>Thank you for supporting The Goodness of Hemp campaign. Online contributions are not enabled in this staging review, so no payment will be collected.</p><p><strong>Your support helps continue hemp education, participation and practical policy work.</strong></p><p class="donation-provider-note">The receiving entity, approved tax language, receipt settings, Terms and Privacy links must be connected before launch.</p></div><div class="donation-amounts"><h2>Donation amount</h2><div class="donation-options" aria-label="Donation amount preview">${amounts.map(amount => `<button type="button" data-donation-amount="${amount}" aria-pressed="false">${amount}</button>`).join('')}<button type="button" data-donation-amount="Other" aria-pressed="false">Other</button></div><button class="donation-pay" type="button" disabled>Pay · unavailable on staging</button><p class="source-note">No card fields are shown and no charge can be created from this preview.</p></div></div>`;
+  }
+
+  function advocacyModal() {
+    const logo = document.querySelector('.brand img')?.getAttribute('src') || '';
+    return `<div class="advocacy-modal-shell"><p class="advocacy-attribution">Paid for by the <a href="https://nationalhempassociation.org/" target="_blank" rel="noopener noreferrer">National Hemp Association</a>.</p><div class="advocacy-mark"><img src="${esc(logo)}" alt="The Goodness of Hemp"></div><h2>Tell Congress: Support the Goodness of Hemp</h2><p class="advocacy-lead"><strong>America’s hemp industry has grown.</strong><br><br>Now it’s time for policy to grow with it.</p><p>Congress has an opportunity to support a balanced, long-term framework that strengthens American agriculture, protects consumers, encourages innovation, and creates opportunities across the full hemp economy.</p><p class="advocacy-signoff"><strong>One Plant. Many Benefits.</strong></p><a class="advocacy-continue" href="${esc(C.actionURL)}" target="_blank" rel="noopener noreferrer">Take Action <span aria-hidden="true">↗</span></a><p class="source-note">Continues on the National Hemp Association’s external action provider. Opening it does not send a message.</p></div>`;
   }
 
   function comparisonMark(value) {
@@ -122,7 +190,11 @@
   }
 
   function frameworkStaging() {
-    return originalFramework() + `<section class="section paper"><div class="wrap"><div class="global-readiness"><div><p class="kicker">GLOBAL SUPPLY-CHAIN READINESS</p><h2>American capacity.<br><span class="light">Global opportunity.</span></h2></div><div><p>A clear domestic framework can help American farms and manufacturers build the consistency, traceability and market confidence needed to participate in global supply chains.</p><p class="source-note">This is a policy rationale, not a promise of export access or commercial results.</p></div></div><div class="button-row spaced"><button class="btn" type="button" data-open-comparison>Open policy comparison</button><a class="btn outline" href="#/framework/compare">Shareable comparison page ↗</a><a class="text-link" href="#/plan-dont-ban">Plan. Don’t Ban. ↗</a></div></div></section>`;
+    const template = document.createElement('template');
+    template.innerHTML = originalFramework();
+    const pillars = template.content.querySelector('.pillars');
+    if (pillars) pillars.id = 'policy-pillars';
+    return template.innerHTML + `<section class="section paper"><div class="wrap"><div class="global-readiness"><div><p class="kicker">GLOBAL SUPPLY-CHAIN READINESS</p><h2>American capacity.<br><span class="light">Global opportunity.</span></h2></div><div><p>A clear domestic framework can help American farms and manufacturers build the consistency, traceability and market confidence needed to participate in global supply chains.</p><p class="source-note">This is a policy rationale, not a promise of export access or commercial results.</p></div></div><div class="button-row spaced"><button class="btn" type="button" data-open-comparison>Open policy comparison</button><a class="btn outline" href="#/framework/compare">Shareable comparison page ↗</a><a class="text-link" href="#/plan-dont-ban">Plan. Don’t Ban. ↗</a></div></div></section>`;
   }
 
   function mediaStaging() {
@@ -197,6 +269,8 @@
   const previousBind = bindView;
   bindView = function bindStagingView() {
     previousBind();
+    document.querySelectorAll('a[href="#/donate"]').forEach(link => link.setAttribute('data-open-donate', ''));
+    document.querySelectorAll(`a[href="${C.actionURL}"]`).forEach(link => link.setAttribute('data-open-action', ''));
     document.querySelectorAll('#candidate-search,#candidate-tag').forEach(control => control.addEventListener('input', () => {
       const search = document.querySelector('#candidate-search')?.value.toLowerCase() || '';
       const tag = document.querySelector('#candidate-tag')?.value || '';
@@ -219,6 +293,31 @@
   document.addEventListener('click', event => {
     const target = event.target.closest('a,button');
     if (!target) return;
+    if (target.hasAttribute('data-scroll-target')) {
+      event.preventDefault();
+      document.getElementById(target.dataset.scrollTarget)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    if (target.hasAttribute('data-route-target')) {
+      pendingRouteTarget = target.dataset.routeTarget;
+      if (target.hash === location.hash) {
+        event.preventDefault();
+        document.getElementById(pendingRouteTarget)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        pendingRouteTarget = null;
+      }
+    }
+    if (target.hasAttribute('data-open-donate')) {
+      event.preventDefault();
+      modal(donationModal());
+    }
+    if (target.hasAttribute('data-open-action')) {
+      event.preventDefault();
+      document.querySelector('#site-nav')?.classList.remove('open');
+      modal(advocacyModal());
+    }
+    if (target.hasAttribute('data-donation-amount')) {
+      event.preventDefault();
+      document.querySelectorAll('[data-donation-amount]').forEach(button => button.setAttribute('aria-pressed', String(button === target)));
+    }
     if (target.hasAttribute('data-staging-provision')) {
       event.preventDefault();
       const item = C.benefits.find(b => b.audience === target.dataset.stagingProvision);
@@ -245,6 +344,11 @@
     toggle?.focus();
   });
 
+  document.addEventListener('visibilitychange', () => {
+    const dialog = document.querySelector('#dialog');
+    if (document.hidden && dialog?.open && dialog.querySelector('.media-frame')) closeDialog();
+  });
+
   const routeTitles = {
     '/learn': 'Learn', '/industry-outlook': 'Industry outlook', '/supporters': 'Who we are',
     '/plan-dont-ban': 'Plan. Don’t Ban.', '/take-action': 'Plan. Don’t Ban.', '/donate': 'Donate',
@@ -254,6 +358,11 @@
     const path = location.hash.slice(1) || '/';
     const sector = C.sectors.find(item => path === `/learn/${item.id}`);
     if (routeTitles[path] || sector) document.title = `${sector?.title || routeTitles[path]} — The Goodness of Hemp`;
+    if (pendingRouteTarget) {
+      const target = pendingRouteTarget;
+      pendingRouteTarget = null;
+      requestAnimationFrame(() => document.getElementById(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    }
   });
 
   updateNavigation();

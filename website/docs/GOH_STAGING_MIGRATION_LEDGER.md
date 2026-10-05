@@ -24,11 +24,18 @@ This branch is a focused integration into the newer `website/` implementation. T
 | Official favicon | `assets/icon/TGoHfav_32x32.svg` | Replaced the generated placeholder with the exact favicon served by the original GOH site. |
 | Cream merchandise and flying disc | `assets/shop/`, `#/shop` | Added cream crewneck, hoodie, cropped tee, and hemp-composite flying-disc concepts while retaining all existing products. |
 | Global-market direction | Homepage, policy, media, campaign, and outlook routes | Added carefully qualified global-supply-chain and global-expansion language. Geoff and Morgan interview topics both include global supply chains. |
+| Original homepage orientation strip | Directly below the native hero | Restored the supplied taupe four-part composition and exact copy. Its three destinations now reach the production pathways, ten policy pillars, and organization form without turning the orientation counts into USDA statistics. |
+| Grain / Fiber / Floral production pathways | After USDA facts and the compact comparison invitation | Restored the original photographs and exact supplied card copy once, with Grain linked to Food & Nutrition, Fiber to Fiber & Manufacturing, and Floral to the proposed Framework. The separate six-card application grid remains intact. |
+| Original click-to-play film invitation | After the six application groups | Restored the original film poster and invitation. No third-party iframe is created until a deliberate click, and the iframe is removed on close. |
+| Homepage comparison entry points | Hero and post-facts strip | Added two progressive-enhancement links to the same 12-row/five-proposal comparison dialog with the permanent comparison route as fallback. |
+| Donate and Tell Congress entry behavior | Header/footer/home/campaign triggers | Restored shared in-page staging dialog shells. Donation amounts are visible but payment remains disabled; Tell Congress retains linked NHA attribution and the verified external action-provider fallback. |
 
 ## Deliberately not treated as production-ready data
 
 - A logo listing is not treated as legislative endorsement, and no unverified supporter total is published.
 - The comparison matrix is a dated supplied transcription, not new legal analysis.
 - The donation route does not collect money because recipient, checkout URL, and approved wording are unresolved.
+- The visual donation dialog is a non-charging staging shell; the original checkout integration, recipient, tax wording, receipt behavior, and approved Terms/Privacy destinations were not present in the supplied source.
+- The Tell Congress dialog uses the verified external fallback because the original provider embed/source was not present in the supplied source. A click is not a sent message.
 - Merchandise pricing, material specifications, inventory, sizes, and fulfillment are not invented.
 - A public full-framework download is not exposed; the existing request workflow remains in place.
