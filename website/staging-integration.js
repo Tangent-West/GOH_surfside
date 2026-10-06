@@ -1,5 +1,5 @@
 /* Focused staging merge. The current website remains the base; this file adds
-   the handoff's responsive wall, education, campaign, comparison and store work. */
+   the handoff's responsive wall, education, campaign, policy and store work. */
 (() => {
   'use strict';
 
@@ -7,13 +7,11 @@
   if (!C || typeof routes === 'undefined') return;
 
   const originalHome = routes['/'];
-  const originalFramework = routes['/framework'];
   const originalMedia = routes['/media'];
   const originalShop = routes['/shop'];
   const chapterData = window.GOH_CHAPTERS || [];
   const chapterVideoIds = new Set(chapterData.map(chapter => chapter.video?.youtubeId).filter(Boolean));
   const isStagingReview = new URLSearchParams(window.location.search).has('staging');
-  let comparison = null;
   let pendingRouteTarget = null;
 
   const socialProfiles = [
@@ -40,17 +38,13 @@
   ];
 
   const source = (url, label) => `<a class="source-link" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)} <span aria-hidden="true">↗</span></a>`;
-  const summary = () => '<a class="btn lime" href="#/framework">Policy Summary <span aria-hidden="true">↗</span></a>';
-  const request = () => `<a class="btn outline" href="${C.frameworkRequestURL}">Request Full Framework <span aria-hidden="true">↗</span></a>`;
-  const proposed = () => '<p class="source-note">Proposed framework, not enacted law. Section references identify the dated GOH proposal; read the complete framework for its scope and conditions.</p>';
+  const summary = () => '<a class="btn lime" href="#/framework">Policy pillars <span aria-hidden="true">↗</span></a>';
+  const request = () => `<a class="btn outline" href="${C.frameworkRequestURL}">Request current proposed language <span aria-hidden="true">↗</span></a>`;
+  const proposed = () => '<p class="source-note">These pillars summarize the current proposed framework’s general direction. The framework remains under development, may change, and is not introduced legislation or current law.</p>';
   const socialLinks = (className = '') => `<div class="social-links ${esc(className)}" aria-label="The Goodness of Hemp social media">${socialProfiles.map(profile => `<a href="${esc(profile.url)}" target="_blank" rel="noopener noreferrer" aria-label="Follow The Goodness of Hemp on ${esc(profile.name)}" title="${esc(profile.name)}"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">${profile.icon}</svg><span>${esc(profile.name)}</span></a>`).join('')}</div>`;
 
   function facts() {
     return `<section class="section goh-facts" id="hemp-facts" aria-labelledby="facts-heading"><div class="wrap"><div class="section-top"><div><p class="kicker">AMERICAN HEMP · 2025 USDA DATA</p><h2 id="facts-heading">The agricultural foundation.<br><span class="light">The opportunity ahead.</span></h2></div><p>Start with what American farmers are producing today.</p></div><div class="fact-grid">${C.facts.map(f => `<article class="fact-card"><div class="fact-number">${f.display}</div><div class="fact-unit">${f.unit}</div><h3>${f.title}</h3><p>${f.copy}</p><p class="fact-scope">2025 · ${esc(f.scope)}</p>${source(`${C.sources.usda}#page=${f.page}`, 'USDA source')}</article>`).join('')}</div><p class="source-note">These are agricultural production figures, not retail sales or the value of the entire hemp supply chain. The $739 million includes outdoor and under-protection production; acreage, fiber and grain figures cover outdoor production.</p><p class="source-note">Source: USDA NASS, <em>National Hemp Report</em>, released April 16, 2026. ${source(C.sources.usda, 'Read the report')}</p></div></section>`;
-  }
-
-  function comparisonInvitation() {
-    return `<section class="comparison-invitation" aria-labelledby="home-comparison-heading"><div class="wrap comparison-invitation-inner"><div><p class="kicker">DATED POLICY COMPARISON · SEPTEMBER 14, 2026</p><h2 id="home-comparison-heading">Compare Hemp Proposals.</h2></div><div><p>Compare selected provisions across GOH and other federal hemp proposals.</p><p class="source-note">National Hemp Association reference · Marked and unmarked cells are reproduced literally; unmarked does not mean opposition or absence.</p></div><a class="btn outline" href="#/framework/compare" data-open-comparison>View comparison <span aria-hidden="true">↗</span></a></div></section>`;
   }
 
   function restoreOrientationStrip(template) {
@@ -83,9 +77,9 @@
     const cards = [...section.querySelectorAll('.photo-card')];
     cards.forEach(card => card.classList.add('pathway-card'));
     const links = cards.map(card => card.querySelector('.text-link'));
-    if (links[0]) links[0].href = '#/learn/food-nutrition';
-    if (links[1]) links[1].href = '#/learn/fiber-manufacturing';
-    if (links[2]) links[2].href = '#/framework';
+    if (links[0]) links[0].href = '#/learn/hemp-food/';
+    if (links[1]) links[1].href = '#/learn/hemp-materials/';
+    if (links[2]) links[2].href = '#/learn/hemp-cannabinoids/';
     return section.outerHTML;
   }
 
@@ -101,20 +95,12 @@
     return film.outerHTML;
   }
 
-  function sectors() {
-    return `<div class="industry-grid">${C.sectors.map(s => `<article class="photo-card"><a href="#/learn/${s.id}"><img src="assets/education/industry-${s.photo}.jpg" alt="${esc(s.alt)}" width="700" height="467" loading="lazy"></a><h3><a href="#/learn/${s.id}">${s.title}</a></h3><p>${s.copy}</p><a class="text-link" href="#/learn/${s.id}">Explore ${s.id === 'wellness-consumer-products' ? 'wellness, beverages & personal care' : 'this part of hemp'} <span aria-hidden="true">↗</span></a></article>`).join('')}</div>`;
-  }
-
-  function applications() {
-    return `<section class="section paper" id="everyday-applications"><div class="wrap"><div class="section-top"><div><p class="kicker">ONE PLANT. MANY BENEFITS.</p><h2>Hemp in everyday life.</h2></div><p>Food. Materials. Buildings. Consumer products. Explore the people, processes and rules behind each application.</p></div>${sectors()}</div></section>`;
-  }
-
   function needs() {
     return `<section class="section" id="why-policy-matters"><div class="wrap split"><img class="full-photo" src="assets/education/harvest.jpg" alt="A tractor harvesting a real hemp field" width="700" height="470" loading="lazy"><div><p class="kicker">WHY WORKABLE POLICY MATTERS</p><h2>From the farm<br><span class="light">to the global economy.</span></h2><p>Farmers need a path to buyers. Processors and manufacturers need consistent requirements. Consumers need clear labels and accountable businesses.</p><p>The American hemp industry is building the capacity, standards and partnerships needed for responsible global expansion. The GOH proposal connects agricultural rules, industrial supply chains and product-specific safeguards without promising a particular market outcome.</p><div class="button-row"><a class="text-link" href="#/industry-outlook">Explore the evidence and policy context ↗</a></div></div></div></section>`;
   }
 
   function benefits() {
-    return `<section class="section stone" id="framework-benefits"><div class="wrap"><div class="section-top"><div><p class="kicker">THE PROPOSED GOH FRAMEWORK</p><h2>Different needs.<br><span class="light">A connected approach.</span></h2></div><p>Read how specific provisions relate to people across the supply chain.</p></div><div class="benefit-grid">${C.benefits.map(b => `<article class="benefit-card"><h3>${b.audience}</h3><p class="benefit-need">${b.need}</p><p>${b.benefit}</p><button class="text-link" type="button" data-staging-provision="${esc(b.audience)}">Proposed §§ ${esc(b.sections)} ↗</button></article>`).join('')}</div>${proposed()}<div class="button-row">${summary()}${request()}<a class="text-link" href="#/framework">View all ten pillars ↗</a></div></div></section>`;
+    return `<section class="section stone" id="framework-benefits"><div class="wrap"><div class="section-top"><div><p class="kicker">THE PROPOSED GOH FRAMEWORK</p><h2>Different needs.<br><span class="light">A connected approach.</span></h2></div><p>See how the framework’s general policy concepts connect people across the supply chain.</p></div><div class="benefit-grid">${C.benefits.map(b => `<article class="benefit-card"><h3>${b.audience}</h3><p class="benefit-need">${b.need}</p><p>${b.benefit}</p><a class="text-link" href="#/framework">Read the ten pillars ↗</a></article>`).join('')}</div>${proposed()}<div class="button-row">${summary()}${request()}</div></div></section>`;
   }
 
   function organizationCards() {
@@ -144,11 +130,10 @@
     if (kicker) kicker.textContent = 'ONE PLANT. MANY BENEFITS.';
     const intro = heroSection.querySelector('.hero-copy .intro');
     if (intro) intro.textContent = 'Explore the whole American hemp industry—from farms and processing to products and research—ready to grow into global supply chains.';
-    row?.insertAdjacentHTML('afterend', '<a class="text-link hero-comparison-link" href="#/framework/compare" data-open-comparison>Compare Hemp Proposals <span aria-hidden="true">↗</span></a>');
     const orientation = restoreOrientationStrip(template);
     const pathways = restoreProductionPathways(template);
     const film = restoreFilm(template);
-    return heroSection.outerHTML + orientation + facts() + comparisonInvitation() + pathways + applications() + film + needs() + benefits() + who() + action();
+    return heroSection.outerHTML + orientation + chapters({home: true}) + facts() + pathways + film + needs() + benefits() + who() + action();
   }
 
   const chapterHref = chapter => `#${chapter.route}`;
@@ -170,23 +155,38 @@
   }
 
   function chapterNavigation(current) {
-    return `<nav class="chapter-navigation" aria-label="Educational chapters"><div class="wrap"><a class="chapter-navigation-index" href="#/learn">All learning</a><div>${chapterData.map(chapter => `<a href="${chapterHref(chapter)}"${chapter === current ? ' aria-current="page"' : ''}>${esc(chapter.title.replace(/^Hemp /, ''))}</a>`).join('')}</div></div></nav>`;
+    return `<nav class="chapter-navigation" aria-label="Educational chapters"><div class="wrap"><a class="chapter-navigation-index" href="#/learn">Chapter index</a><div>${chapterData.map(chapter => `<a href="${chapterHref(chapter)}"${chapter === current ? ' aria-current="page"' : ''}>${esc(chapter.title.replace(/^Hemp /, ''))}</a>`).join('')}</div></div></nav>`;
   }
 
   function chapterPage(chapter) {
     const citations = chapter.citations?.length ? `<section class="section chapter-sources"><div class="wrap"><div class="section-top"><div><p class="kicker">SOURCES & FURTHER READING</p><h2>Follow the evidence.</h2></div><p>These links add current regulatory and evidence context to the original Goodness of Hemp educational material.</p></div><ol>${chapter.citations.map(citation => `<li>${source(citation.url, citation.label)}</li>`).join('')}</ol></div></section>` : '';
     const currentIndex = chapterData.indexOf(chapter);
-    const related = [1, 2, 3].map(offset => chapterData[(currentIndex + offset) % chapterData.length]).filter(Boolean);
-    return `<article class="chapter-page"><header class="chapter-hero"><div class="chapter-hero-media"><img src="${esc(chapter.hero.image)}" alt="${esc(chapter.hero.alt)}" loading="eager" decoding="async"></div><div class="chapter-hero-copy"><p class="breadcrumb"><a href="#/learn">Learn</a> / ${esc(chapter.title)}</p><p class="kicker">${esc(chapter.eyebrow)}</p><h1>${esc(chapter.hero.title)}</h1><p class="chapter-summary">${esc(chapter.summary)}</p><div class="chapter-intro">${renderParagraphs(chapter.intro)}</div><a class="text-link" href="${chapterHref(chapter)}" data-scroll-target="${esc(chapter.sections[0]?.id || '')}">Begin the chapter <span aria-hidden="true">↓</span></a></div></header>${chapterNavigation(chapter)}${chapter.sections.map(chapterSection).join('')}<section class="chapter-film"><div class="chapter-film-image"><img src="${esc(chapter.hero.image)}" alt="" loading="lazy"><button class="play-button" type="button" aria-label="Play ${esc(chapter.video.title)}" data-chapter-video="${esc(chapter.video.youtubeId)}">▶</button></div><div class="chapter-film-copy"><p class="kicker">THE GOODNESS OF HEMP STORY</p><h2>${esc(chapter.video.title)}</h2><p>${esc(chapter.video.caption)}</p><button class="btn" type="button" data-chapter-video="${esc(chapter.video.youtubeId)}">Watch the film <span aria-hidden="true">▶</span></button></div></section><section class="section chapter-context"><div class="wrap"><div class="chapter-disclaimer"><p class="kicker">EVIDENCE & CONTEXT</p><h2>${esc(chapter.disclaimer.title)}</h2><p>${esc(chapter.disclaimer.text)}</p></div></div></section>${citations}<section class="section paper chapter-related"><div class="wrap"><div class="section-top"><div><p class="kicker">KEEP EXPLORING</p><h2>Continue through hemp’s connected supply chain.</h2></div><a class="text-link" href="#/learn">View all learning <span aria-hidden="true">↗</span></a></div><div class="chapter-related-grid">${related.map(item => `<a href="${chapterHref(item)}"><span>${esc(item.eyebrow.replace('Educational library · ', ''))}</span><strong>${esc(item.hero.title)}</strong><small>Read the chapter ↗</small></a>`).join('')}</div></div></section><section class="section chapter-follow"><div class="wrap chapter-follow-inner"><div><p class="kicker">FOLLOW & SHARE</p><h2>Keep the Goodness moving.</h2><p>Follow the campaign, share the educational library, or explore the proposed framework.</p></div><div>${socialLinks('chapter-social')}<div class="button-row"><a class="btn lime" href="#/framework">Policy summary ↗</a><a class="btn outline" href="#/plan-dont-ban">Plan. Don’t Ban. ↗</a></div></div></div></section></article>`;
+    const previous = chapterData[(currentIndex - 1 + chapterData.length) % chapterData.length];
+    const next = chapterData[(currentIndex + 1) % chapterData.length];
+    const pager = `<nav class="chapter-pager" aria-label="Chapter navigation"><a href="${chapterHref(previous)}"><span>← Previous chapter</span><strong>${esc(previous.title)}</strong></a><a class="chapter-pager-all" href="#/learn"><span>Explore the hemp story</span><strong>Chapter index</strong></a><a class="chapter-pager-next" href="${chapterHref(next)}"><span>Next chapter →</span><strong>${esc(next.title)}</strong></a></nav>`;
+    return `<article class="chapter-page"><header class="chapter-hero"><div class="chapter-hero-media"><img src="${esc(chapter.hero.image)}" alt="${esc(chapter.hero.alt)}" loading="eager" decoding="async"></div><div class="chapter-hero-copy"><p class="breadcrumb"><a href="#/learn">Learn</a> / ${esc(chapter.title)}</p><p class="kicker">${esc(chapter.eyebrow)}</p><h1>${esc(chapter.hero.title)}</h1><p class="chapter-summary">${esc(chapter.summary)}</p><div class="chapter-intro">${renderParagraphs(chapter.intro)}</div><a class="text-link" href="${chapterHref(chapter)}" data-scroll-target="${esc(chapter.sections[0]?.id || '')}">Begin the chapter <span aria-hidden="true">↓</span></a></div></header>${chapterNavigation(chapter)}${chapter.sections.map(chapterSection).join('')}<section class="chapter-film"><div class="chapter-film-image"><img src="${esc(chapter.hero.image)}" alt="" loading="lazy"><button class="play-button" type="button" aria-label="Play ${esc(chapter.video.title)}" data-chapter-video="${esc(chapter.video.youtubeId)}">▶</button></div><div class="chapter-film-copy"><p class="kicker">THE GOODNESS OF HEMP STORY</p><h2>${esc(chapter.video.title)}</h2><p>${esc(chapter.video.caption)}</p><button class="btn" type="button" data-chapter-video="${esc(chapter.video.youtubeId)}">Watch the film <span aria-hidden="true">▶</span></button></div></section><section class="section chapter-context"><div class="wrap"><div class="chapter-disclaimer"><p class="kicker">EVIDENCE & CONTEXT</p><h2>${esc(chapter.disclaimer.title)}</h2><p>${esc(chapter.disclaimer.text)}</p></div></div></section>${citations}<section class="section paper chapter-related"><div class="wrap"><div class="section-top"><div><p class="kicker">KEEP EXPLORING</p><h2>Continue through hemp’s connected supply chain.</h2></div></div>${pager}</div></section><section class="section chapter-follow"><div class="wrap chapter-follow-inner"><div><p class="kicker">FOLLOW & SHARE</p><h2>Keep the Goodness moving.</h2><p>Follow the campaign, share the educational chapters, or explore the proposed framework.</p></div><div>${socialLinks('chapter-social')}<div class="button-row"><a class="btn lime" href="#/framework">Policy summary ↗</a><a class="btn outline" href="#/plan-dont-ban">Plan. Don’t Ban. ↗</a></div></div></div></section></article>`;
   }
 
-  function chapters() {
+  function chapters({home = false} = {}) {
     const records = chapterData.length ? chapterData : C.chapters.map((chapter, index) => ({...chapter, route: `/learn/${['agriculture', 'food', 'feed', 'cannabinoids', 'materials', 'wellness', 'beverages'][index]}`}));
-    return `<section class="section paper"><div class="wrap"><div class="section-top"><div><p class="kicker">EDUCATIONAL LIBRARY</p><h2>Seven detailed chapters.</h2></div><p>Move from the field through food, feed, materials, wellness, cannabinoids and beverages—with the process, applications, rules and evidence kept in context.</p></div><div class="chapter-grid">${records.map(chapter => `<article class="chapter-card"><h3>${esc(chapter.title)}</h3><p>${esc(chapter.summary)}</p><a class="source-link" href="#${esc(chapter.route)}">Read the full chapter <span aria-hidden="true">↗</span></a></article>`).join('')}</div></div></section>`;
+    const sectionId = home ? 'home-chapters' : 'chapter-library';
+    const kicker = home ? 'EXPLORE HEMP, CHAPTER BY CHAPTER' : 'START WITH A CHAPTER';
+    return `<section class="section chapter-entry-section" id="${sectionId}"><div class="wrap"><div class="section-top"><div><p class="kicker">${kicker}</p><h2>The hemp story, chapter by chapter.</h2></div><p>Start with any chapter and follow the connections across American hemp’s evolving supply chain.</p></div><div class="chapter-grid">${records.map((chapter, index) => `<a class="chapter-card" href="#${esc(chapter.route)}"><figure><img src="${esc(chapter.hero?.image || `assets/education/industry-${chapter.slug}.jpg`)}" alt="" width="900" height="600" loading="lazy" decoding="async"></figure><div class="chapter-card-copy"><span class="chapter-card-number">${String(index + 1).padStart(2, '0')}</span><h3>${esc(chapter.title)}</h3><p>${esc(chapter.summary)}</p><span class="chapter-card-link">Read the chapter <span aria-hidden="true">↗</span></span></div></a>`).join('')}</div></div></section>`;
   }
 
   function learn() {
-    return hero('Learn', 'One Plant.<br><span class="light">Many Benefits.</span>', 'Explore American hemp by application, with source-backed facts, clear qualifications and links to the complete educational chapters.') + `<section class="section"><div class="wrap">${sectors()}<div class="button-row"><a class="text-link" href="#/industry-outlook">Data, research and market context ↗</a></div></div></section>` + chapters();
+    return hero('Learn', 'One Plant.<br><span class="light">Many Benefits.</span>', 'Explore American hemp chapter by chapter, with source-backed facts, clear qualifications and direct paths across the hemp supply chain.') + chapters();
+  }
+
+  function appendixContext(context) {
+    return context ? `<span class="appendix-context">${esc(context)}</span>` : '';
+  }
+
+  function industryAppendix() {
+    const terms = (C.industryTerms || []).map(item => `<div class="appendix-term"><dt>${esc(item.term)}${appendixContext(item.context)}</dt><dd>${esc(item.definition)}</dd></div>`).join('');
+    const areas = (C.appliedAreas || []).map(item => `<article class="applied-area"><h3>${esc(item.title)}${appendixContext(item.context)}</h3><p>${esc(item.text)}</p></article>`).join('');
+    const references = (C.appendixSources || []).map(item => `<li>${source(item.url, item.label)}</li>`).join('');
+    return hero('Industry appendix', 'Terms for a growing<br><span class="light">global hemp industry.</span>', 'A shared vocabulary and a living map of known applications—designed to expand as the industry does.') + `<section class="section compact appendix-overview"><div class="wrap appendix-overview-grid"><div><p class="kicker">HOW TO USE THIS APPENDIX</p><h2>A reference,<br><span class="light">not a boundary.</span></h2></div><div><p>Hemp moves through connected agricultural, food, feed, material, manufacturing and consumer-product supply chains. This appendix organizes commonly used terms and applied areas without treating today’s categories as fixed or exhaustive.</p><aside class="appendix-jurisdiction"><strong>Global context</strong><p>Terminology, legal definitions, cannabinoid limits, product classifications, building-code adoption and permitted uses vary by country and other jurisdiction. A term or application listed here does not mean it is approved, lawful or suitable in a particular market.</p></aside></div></div></section><section class="section paper appendix-terms" id="hemp-industry-terms"><div class="wrap"><div class="section-top"><div><p class="kicker">INDUSTRY TERMS</p><h2>A shared starting vocabulary.</h2></div><p>Context labels identify terms whose meaning, authorization or use can change across markets.</p></div><dl class="appendix-glossary">${terms}</dl></div></section><section class="section appendix-applications" id="known-application-areas"><div class="wrap"><div class="section-top"><div><p class="kicker">KNOWN APPLICATION AREAS</p><h2>Where hemp is being applied.</h2></div><p>A living index of established and developing areas—not a claim that every product or use is authorized in every market.</p></div><div class="applied-area-grid">${areas}</div></div></section><section class="section compact paper appendix-references"><div class="wrap"><div class="section-top"><div><p class="kicker">REFERENCE POINTS</p><h2>Follow the source context.</h2></div><p>These references provide U.S. regulatory, research and code examples. Their scope does not extend automatically to other jurisdictions.</p></div><ul>${references}</ul><div class="button-row"><a class="text-link" href="#/learn">Return to the chapter index <span aria-hidden="true">↗</span></a></div></div></section>`;
   }
 
   function topic(s) {
@@ -200,8 +200,8 @@
     };
     const continuation = (sectorChapters[s.id] || []).map(slug => chapterData.find(chapter => chapter.slug === slug)).filter(Boolean).map(chapter => `<a class="source-link" href="${chapterHref(chapter)}">${esc(chapter.title)} <span aria-hidden="true">↗</span></a>`).join(' ');
     const adoption = s.id === 'building-materials' ? `<p class="source-note">${source(C.sources.iccAdoption, 'How model-code adoption works')}</p>` : '';
-    const subtopics = s.id === 'wellness-consumer-products' ? `<section class="section paper"><div class="wrap"><div class="section-top"><h2>Keep each product pathway clear.</h2></div><div class="industry-grid subtopic-grid"><article><h3>Beverages</h3><p>Formulation, manufacturing, adult-use context and safeguards. SōRSE Technology remains visible here and in Research & Innovation.</p><img src="assets/education/industry-beverage.jpg" alt="Adults pictured with beverages in supplied GOH photography" loading="lazy"></article><article><h3>Cannabinoid products</h3><p>Ingredient identity, product form, research and the limits of evidence. No FDA approval or health benefit is implied.</p><img src="assets/education/industry-research.jpg" alt="Oil bottle and laboratory equipment" loading="lazy"></article><article><h3>Personal care</h3><p>Cosmetic uses have their own regulatory context. A personal-care product is not automatically a drug or supplement.</p><img src="assets/education/industry-personal-care.jpg" alt="A person applying a personal-care product" loading="lazy"></article></div></div></section>` : '';
-    return hero(`Learn / ${s.title}`, s.title, s.detail) + `<section class="section"><div class="wrap split"><img class="full-photo" src="assets/education/industry-${s.photo}.jpg" alt="${esc(s.alt)}" width="800" height="600"><div><p class="kicker">EVIDENCE & CONTEXT</p><h2>${s.fact}</h2><p>${s.factBody}</p>${source(C.sources[s.sourceKey], s.sourceLabel)}${adoption}</div></div></section>${subtopics}<section class="section paper"><div class="wrap"><h2>Continue learning.</h2><p class="intro">Read the complete GOH chapter and explore the other parts of the supply chain.</p><div class="button-row">${continuation}<a class="text-link" href="#/learn">All Learn topics ↗</a><a class="text-link" href="#/framework">The proposed framework ↗</a></div><p class="source-note">Educational context, not product approval or medical advice. The cited source’s date, scope and conditions govern each statement.</p></div></section>`;
+    const subtopics = s.id === 'wellness-consumer-products' ? `<section class="section paper"><div class="wrap"><div class="section-top"><h2>Keep each product pathway clear.</h2></div><div class="industry-grid subtopic-grid"><article><h3>Beverages</h3><p>Formulation, manufacturing, adult-use context and safeguards.</p><img src="assets/education/industry-beverage.jpg" alt="Adults pictured with beverages in supplied GOH photography" loading="lazy"></article><article><h3>Cannabinoid products</h3><p>Ingredient identity, product form, research and the limits of evidence. No FDA approval or health benefit is implied.</p><img src="assets/education/industry-research.jpg" alt="Oil bottle and laboratory equipment" loading="lazy"></article><article><h3>Personal care</h3><p>Cosmetic uses have their own regulatory context. A personal-care product is not automatically a drug or supplement.</p><img src="assets/education/industry-personal-care.jpg" alt="A person applying a personal-care product" loading="lazy"></article></div></div></section>` : '';
+    return hero(`Learn / ${s.title}`, s.title, s.detail) + `<section class="section"><div class="wrap split"><img class="full-photo" src="assets/education/industry-${s.photo}.jpg" alt="${esc(s.alt)}" width="800" height="600"><div><p class="kicker">EVIDENCE & CONTEXT</p><h2>${s.fact}</h2><p>${s.factBody}</p>${source(C.sources[s.sourceKey], s.sourceLabel)}${adoption}</div></div></section>${subtopics}<section class="section paper"><div class="wrap"><h2>Continue learning.</h2><p class="intro">Read a related GOH chapter and explore more of the supply chain.</p><div class="button-row">${continuation}<a class="text-link" href="#/learn">All Learn topics ↗</a><a class="text-link" href="#/framework">The proposed framework ↗</a></div><p class="source-note">Educational context, not product approval or medical advice. The cited source’s date, scope and conditions govern each statement.</p></div></section>`;
   }
 
   function outlook() {
@@ -214,7 +214,7 @@
   }
 
   function planDontBan() {
-    return hero('Plan. Don’t Ban.', 'Plan. Don’t Ban.<br><span class="light">Protect farmers. Set clear rules.</span>', 'A campaign for practical federal hemp policy that protects consumers while keeping lawful agricultural and manufacturing pathways open.') + `<section class="section"><div class="wrap campaign-grid"><div><p class="kicker">A PRACTICAL PATH FORWARD</p><h2>Regulate responsibly.<br><span class="light">Don’t erase an industry.</span></h2><p class="intro">Plan. Don’t Ban. asks policymakers to replace broad prohibition with clear categories, age controls, testing, traceability and enforceable product rules.</p><p>It also recognizes the farmers, processors, manufacturers, researchers and businesses building American capacity for domestic growth and global supply-chain participation.</p><div class="button-row"><a class="btn lime" href="${esc(C.actionURL)}" target="_blank" rel="noopener noreferrer" data-open-action>Tell Congress ↗</a><a class="btn outline" href="${esc(C.sources.planDontBan)}" target="_blank" rel="noopener noreferrer">Visit the NHA campaign ↗</a></div><p class="source-note">Advocacy is led by the National Hemp Association. Opening the action provider does not send a message; review its form before choosing whether to submit.</p></div><div class="campaign-points"><article><h3>Protect consumers</h3><p>Use testing, labels, packaging, traceability and age controls tailored to product categories.</p></article><article><h3>Protect farmers and manufacturing</h3><p>Keep lawful grain, fiber, floral and controlled work-in-process pathways distinct.</p></article><article><h3>Support American competitiveness</h3><p>Build consistent rules and infrastructure that can support trusted domestic and global markets.</p></article></div></div></section><section class="section paper"><div class="wrap"><div class="button-row">${summary()}${request()}<a class="text-link" href="#/toolkit">Campaign materials ↗</a><a class="text-link" href="#/framework/compare" data-open-comparison>Review the dated policy comparison ↗</a></div></div></section>`;
+    return hero('Plan. Don’t Ban.', 'Plan. Don’t Ban.<br><span class="light">Protect farmers. Set clear rules.</span>', 'A campaign for practical federal hemp policy that protects consumers while keeping lawful agricultural and manufacturing pathways open.') + `<section class="section"><div class="wrap campaign-grid"><div><p class="kicker">A PRACTICAL PATH FORWARD</p><h2>Regulate responsibly.<br><span class="light">Don’t erase an industry.</span></h2><p class="intro">Plan. Don’t Ban. asks policymakers to replace broad prohibition with clear categories, age controls, testing, traceability and enforceable product rules.</p><p>It also recognizes the farmers, processors, manufacturers, researchers and businesses building American capacity for domestic growth and global supply-chain participation.</p><div class="button-row"><a class="btn lime" href="${esc(C.actionURL)}" target="_blank" rel="noopener noreferrer" data-open-action>Tell Congress ↗</a><a class="btn outline" href="${esc(C.sources.planDontBan)}" target="_blank" rel="noopener noreferrer">Visit the NHA campaign ↗</a></div><p class="source-note">Advocacy is led by the National Hemp Association. Opening the action provider does not send a message; review its form before choosing whether to submit.</p></div><div class="campaign-points"><article><h3>Protect consumers</h3><p>Use testing, labels, packaging, traceability and age controls tailored to product categories.</p></article><article><h3>Protect farmers and manufacturing</h3><p>Keep lawful grain, fiber, floral and controlled work-in-process pathways distinct.</p></article><article><h3>Support American competitiveness</h3><p>Build consistent rules and infrastructure that can support trusted domestic and global markets.</p></article></div></div></section><section class="section paper"><div class="wrap"><div class="button-row">${summary()}${request()}<a class="text-link" href="#/toolkit">Campaign materials ↗</a></div></div></section>`;
   }
 
   function donate() {
@@ -233,34 +233,9 @@
     return `<div class="advocacy-modal-shell"><p class="advocacy-attribution">Paid for by the <a href="https://nationalhempassociation.org/" target="_blank" rel="noopener noreferrer">National Hemp Association</a>.</p><div class="advocacy-mark"><img src="${esc(logo)}" alt="The Goodness of Hemp"></div><h2>Tell Congress: Support the Goodness of Hemp</h2><p class="advocacy-lead"><strong>America’s hemp industry has grown.</strong><br><br>Now it’s time for policy to grow with it.</p><p>Congress has an opportunity to support a balanced, long-term framework that strengthens American agriculture, protects consumers, encourages innovation, and creates opportunities across the full hemp economy.</p><p class="advocacy-signoff"><strong>One Plant. Many Benefits.</strong></p><a class="advocacy-continue" href="${esc(C.actionURL)}" target="_blank" rel="noopener noreferrer">Take Action <span aria-hidden="true">↗</span></a><p class="source-note">Continues on the National Hemp Association’s external action provider. Opening it does not send a message.</p></div>`;
   }
 
-  function comparisonMark(value) {
-    return value === 'marked' ? '<span class="comparison-mark" aria-label="Marked">✓</span>' : '<span class="comparison-blank" aria-label="Unmarked">—</span>';
-  }
-
-  function comparisonDesktop(data) {
-    return `<div class="comparison-table-wrap"><table class="comparison-table"><thead><tr><th scope="col">Provision in the dated source</th>${data.columns.map(col => `<th scope="col"${col.id === 'goh' ? ' class="comparison-goh"' : ''}>${esc(col.label)}${col.billIdentifierAsPrinted ? `<br><span class="micro">${esc(col.billIdentifierAsPrinted)}</span>` : ''}</th>`).join('')}</tr></thead><tbody>${data.rows.map(row => `<tr><th scope="row">${esc(row.labelAsPrinted)}</th>${data.columns.map(col => `<td${col.id === 'goh' ? ' class="comparison-goh"' : ''}>${comparisonMark(row.cells[col.id])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
-  }
-
-  function comparisonMobile(data, selected = data.columns[1].id) {
-    const competitor = data.columns.find(col => col.id === selected) || data.columns[1];
-    return `<div class="comparison-mobile"><label>Compare GOH with<select id="comparison-select">${data.columns.slice(1).map(col => `<option value="${esc(col.id)}"${col.id === competitor.id ? ' selected' : ''}>${esc(col.label)}</option>`).join('')}</select></label><div id="comparison-mobile-table"><table><thead><tr><th>Provision</th><th class="comparison-goh">GOH</th><th>${esc(competitor.label)}</th></tr></thead><tbody>${data.rows.map(row => `<tr><th scope="row">${esc(row.labelAsPrinted)}</th><td class="comparison-goh">${comparisonMark(row.cells.goh)}</td><td>${comparisonMark(row.cells[competitor.id])}</td></tr>`).join('')}</tbody></table></div></div>`;
-  }
-
-  function comparisonContent(data) {
-    return `<div class="comparison-intro"><div><p class="kicker">DATED REVIEW DATA · ${esc(data.sourceDate)}</p><h2>${esc(data.title)}</h2></div><p>${esc(data.note)}</p></div>${comparisonDesktop(data)}${comparisonMobile(data)}<p class="source-note"><strong>Legend:</strong> ✓ = marked in the supplied comparison. — = unmarked in the supplied comparison; an unmarked cell is not proof of absence or opposition. Source attribution: ${esc(data.sourceAttribution)}.</p>`;
-  }
-
-  function comparisonPage() {
-    if (!comparison) return hero('Policy comparison', 'Compare the proposals.<br><span class="light">Read the source date.</span>', 'Loading the dated review dataset.') + '<section class="section"><div class="wrap"><p>Loading comparison…</p></div></section>';
-    return hero('Policy comparison', 'Compare the proposals.<br><span class="light">Read the source date.</span>', 'A literal marked/unmarked transcription of the dated supplied matrix—not a fresh legal analysis.') + `<section class="section"><div class="wrap">${comparisonContent(comparison)}<div class="button-row spaced"><a class="btn outline" href="framework-comparison.html">Open standalone comparison ↗</a><a class="text-link" href="#/framework">Return to the framework ↗</a></div></div></section>`;
-  }
-
   function frameworkStaging() {
-    const template = document.createElement('template');
-    template.innerHTML = originalFramework();
-    const pillars = template.content.querySelector('.pillars');
-    if (pillars) pillars.id = 'policy-pillars';
-    return template.innerHTML + `<section class="section paper"><div class="wrap"><div class="global-readiness"><div><p class="kicker">GLOBAL SUPPLY-CHAIN READINESS</p><h2>American capacity.<br><span class="light">Global opportunity.</span></h2></div><div><p>A clear domestic framework can help American farms and manufacturers build the consistency, traceability and market confidence needed to participate in global supply chains.</p><p class="source-note">This is a policy rationale, not a promise of export access or commercial results.</p></div></div><div class="button-row spaced"><button class="btn" type="button" data-open-comparison>Open policy comparison</button><a class="btn outline" href="#/framework/compare">Shareable comparison page ↗</a><a class="text-link" href="#/plan-dont-ban">Plan. Don’t Ban. ↗</a></div></div></section>`;
+    const pillars = C.policyPillars.map(pillar => `<details><summary class="pillar-summary"><span><span class="pillar-number">${esc(pillar.n)}</span>${esc(pillar.title)}</span></summary><p>${esc(pillar.text)}</p></details>`).join('');
+    return hero('The proposed framework', 'A smarter federal<br><span class="light">framework for hemp.</span>', 'The ten pillars below summarize the current Goodness of Hemp policy framework so supporters can understand its general direction.') + `<section class="section"><div class="wrap policy-grid"><aside class="policy-index"><p class="kicker">CURRENT POLICY SUMMARY</p><h3>The Goodness of Hemp framework</h3><p>Ten public policy pillars describe the framework’s general direction across agriculture, manufacturing, consumer products and oversight.</p><div class="notice"><strong>Proposed. Not introduced legislation or current law.</strong>The framework remains under development and may change during the drafting process.</div>${request()}<p class="micro spaced">Available by request for discussion and subject to change.</p></aside><div class="pillars" id="policy-pillars">${pillars}</div></div></section><section class="section paper"><div class="wrap"><div class="global-readiness"><div><p class="kicker">GLOBAL SUPPLY-CHAIN READINESS</p><h2>American capacity.<br><span class="light">Global opportunity.</span></h2></div><div><p>A clear domestic framework can help American farms and manufacturers build the consistency, traceability and market confidence needed to participate in global supply chains.</p><p class="source-note">This is a policy rationale, not a promise of export access or commercial results.</p></div></div><div class="button-row spaced"><a class="btn lime" href="#/plan-dont-ban">Plan. Don’t Ban. ↗</a>${request()}</div></div></section>`;
   }
 
   function mediaStaging() {
@@ -290,13 +265,13 @@
   routes['/'] = newHome;
   routes['/learn'] = learn;
   routes['/why-hemp'] = learn;
+  routes['/learn/appendix'] = industryAppendix;
   routes['/industry-outlook'] = outlook;
   routes['/supporters'] = directory;
   routes['/plan-dont-ban'] = planDontBan;
   routes['/take-action'] = planDontBan;
   routes['/donate'] = donate;
   routes['/framework'] = frameworkStaging;
-  routes['/framework/compare'] = comparisonPage;
   routes['/media'] = mediaStaging;
   routes['/shop'] = shopStaging;
   C.sectors.forEach(s => { routes[`/learn/${s.id}`] = () => topic(s); });
@@ -308,11 +283,39 @@
     routes[`/learn/${chapter.slug}`] = renderChapter;
   });
 
+  function setLearnNavigationOpen(open, {focusToggle = false} = {}) {
+    const learnNavigation = document.querySelector('.nav-learn');
+    const toggle = learnNavigation?.querySelector('.nav-learn-toggle');
+    const menu = learnNavigation?.querySelector('.nav-learn-menu');
+    if (!learnNavigation || !toggle || !menu) return;
+    learnNavigation.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', `${open ? 'Hide' : 'Show'} Learn chapters`);
+    menu.hidden = !open;
+    if (focusToggle) toggle.focus();
+  }
+
+  function syncMainNavigationToggleLabel() {
+    const toggle = document.querySelector('.menu-toggle');
+    if (!toggle) return;
+    toggle.setAttribute('aria-label', toggle.getAttribute('aria-expanded') === 'true' ? 'Close navigation' : 'Open navigation');
+  }
+
   function updateNavigation() {
     const nav = document.querySelector('#site-nav');
     if (!nav) return;
     const why = [...nav.querySelectorAll('a')].find(a => a.hash === '#/why-hemp');
-    if (why) { why.href = '#/learn'; why.textContent = 'Learn'; }
+    if (why && !nav.querySelector('.nav-learn')) {
+      const learnNavigation = document.createElement('div');
+      learnNavigation.className = 'nav-learn';
+      learnNavigation.innerHTML = `<a class="nav-learn-link" data-nav-learn href="#/learn">Learn</a><button class="nav-learn-toggle" type="button" aria-expanded="false" aria-controls="learn-chapter-menu" aria-label="Show Learn chapters"><span aria-hidden="true"></span></button><div class="nav-learn-menu" id="learn-chapter-menu" hidden><p class="nav-learn-heading">Explore by chapter</p><div class="nav-learn-chapters">${chapterData.map((chapter, index) => `<a href="${chapterHref(chapter)}" data-nav-chapter="${esc(chapter.route)}"><span>${String(index + 1).padStart(2, '0')}</span><strong>${esc(chapter.title)}</strong></a>`).join('')}</div><a class="nav-learn-overview" href="#/learn">Chapter index <span aria-hidden="true">↗</span></a></div>`;
+      why.replaceWith(learnNavigation);
+      learnNavigation.addEventListener('focusout', () => {
+        requestAnimationFrame(() => {
+          if (!learnNavigation.contains(document.activeElement)) setLearnNavigationOpen(false);
+        });
+      });
+    }
     if (!nav.querySelector('[href="#/plan-dont-ban"]')) {
       const mediaLink = nav.querySelector('[href="#/media"]');
       mediaLink?.insertAdjacentHTML('beforebegin', '<a href="#/plan-dont-ban">Plan. Don’t Ban.</a>');
@@ -330,6 +333,12 @@
       const whyFooter = [...explore.querySelectorAll('a')].find(a => a.hash === '#/why-hemp');
       if (whyFooter) { whyFooter.href = '#/learn'; whyFooter.textContent = 'Learn'; }
       if (!explore.querySelector('[href="#/plan-dont-ban"]')) explore.insertAdjacentHTML('beforeend', '<a href="#/plan-dont-ban">Plan. Don’t Ban.</a><a href="#/donate">Donate</a>');
+    }
+    const footerGrid = document.querySelector('.site-footer .footer-grid');
+    if (footerGrid && !footerGrid.querySelector('.footer-appendix')) {
+      const appendix = `<div class="footer-appendix"><h3>Industry Appendix</h3><a href="#/learn/appendix" data-route-target="hemp-industry-terms">Hemp industry terms</a><a href="#/learn/appendix" data-route-target="known-application-areas">Known application areas</a></div>`;
+      const exploreColumn = [...footerGrid.querySelectorAll(':scope > div')].find(column => column.querySelector('h3')?.textContent.trim() === 'Explore');
+      exploreColumn?.insertAdjacentHTML('afterend', appendix);
     }
     const footerBrand = document.querySelector('.site-footer .footer-grid > div:first-child');
     if (footerBrand && !footerBrand.querySelector('.social-links')) {
@@ -359,17 +368,21 @@
       const result = document.querySelector('#candidate-result');
       if (result) result.textContent = `${count} ${count === 1 ? 'organization' : 'organizations'} shown.`;
     }));
-    document.querySelector('#comparison-select')?.addEventListener('change', event => {
-      const holder = document.querySelector('#comparison-mobile-table');
-      const competitor = comparison?.columns.find(col => col.id === event.target.value);
-      if (!holder || !competitor) return;
-      holder.innerHTML = `<table><thead><tr><th>Provision</th><th class="comparison-goh">GOH</th><th>${esc(competitor.label)}</th></tr></thead><tbody>${comparison.rows.map(row => `<tr><th scope="row">${esc(row.labelAsPrinted)}</th><td class="comparison-goh">${comparisonMark(row.cells.goh)}</td><td>${comparisonMark(row.cells[competitor.id])}</td></tr>`).join('')}</tbody></table>`;
-    });
   };
 
   document.addEventListener('click', event => {
+    const learnNavigation = document.querySelector('.nav-learn');
+    if (learnNavigation && !learnNavigation.contains(event.target)) setLearnNavigationOpen(false);
     const target = event.target.closest('a,button');
     if (!target) return;
+    if (target.matches('.menu-toggle')) requestAnimationFrame(syncMainNavigationToggleLabel);
+    if (target.matches('.nav-learn-toggle')) {
+      event.preventDefault();
+      event.stopPropagation();
+      setLearnNavigationOpen(!learnNavigation?.classList.contains('is-open'));
+      return;
+    }
+    if (target.matches('.nav-learn-link') || target.closest('.nav-learn-menu')) setLearnNavigationOpen(false);
     if (target.hasAttribute('data-chapter-video')) {
       event.preventDefault();
       event.stopImmediatePropagation();
@@ -398,35 +411,28 @@
     if (target.hasAttribute('data-open-action')) {
       event.preventDefault();
       document.querySelector('#site-nav')?.classList.remove('open');
+      document.querySelector('.menu-toggle')?.setAttribute('aria-expanded', 'false');
+      syncMainNavigationToggleLabel();
       modal(advocacyModal());
     }
     if (target.hasAttribute('data-donation-amount')) {
       event.preventDefault();
       document.querySelectorAll('[data-donation-amount]').forEach(button => button.setAttribute('aria-pressed', String(button === target)));
     }
-    if (target.hasAttribute('data-staging-provision')) {
-      event.preventDefault();
-      const item = C.benefits.find(b => b.audience === target.dataset.stagingProvision);
-      if (!item) return;
-      modal(`<p class="kicker">PROPOSED PROVISIONS · NOT CURRENT LAW</p><h2>${esc(item.audience)}</h2><p>${item.benefit}</p><p><strong>Dated proposal sections:</strong> ${esc(item.sections)}</p><p>${item.limit}</p><a class="text-link" href="#/framework" data-close>Read all ten policy pillars ↗</a>`);
-    }
-    if (target.hasAttribute('data-open-comparison')) {
-      event.preventDefault();
-      if (!comparison) {
-        modal('<h2>Comparison data is loading.</h2><p>Open the shareable page in a moment.</p><a class="text-link" href="#/framework/compare" data-close>Open comparison page ↗</a>');
-        return;
-      }
-      modal(`<p class="kicker">DATED REVIEW DATA · ${esc(comparison.sourceDate)}</p><div class="comparison-modal">${comparisonContent(comparison)}</div><div class="button-row spaced"><a class="btn outline" href="#/framework/compare" data-close>Open shareable page ↗</a></div>`);
-    }
   }, true);
 
   document.addEventListener('keydown', event => {
     if (event.key !== 'Escape') return;
+    if (document.querySelector('.nav-learn.is-open')) {
+      setLearnNavigationOpen(false, {focusToggle: true});
+      return;
+    }
     const nav = document.querySelector('#site-nav');
     if (!nav?.classList.contains('open')) return;
     nav.classList.remove('open');
     const toggle = document.querySelector('.menu-toggle');
     toggle?.setAttribute('aria-expanded', 'false');
+    syncMainNavigationToggleLabel();
     toggle?.focus();
   });
 
@@ -436,18 +442,25 @@
   });
 
   const routeTitles = {
-    '/learn': 'Learn', '/industry-outlook': 'Industry outlook', '/supporters': 'Who we are',
-    '/plan-dont-ban': 'Plan. Don’t Ban.', '/take-action': 'Plan. Don’t Ban.', '/donate': 'Donate',
-    '/framework/compare': 'Policy comparison'
+    '/learn': 'Learn', '/why-hemp': 'Learn', '/learn/appendix': 'Industry appendix', '/industry-outlook': 'Industry outlook', '/supporters': 'Who we are',
+    '/plan-dont-ban': 'Plan. Don’t Ban.', '/take-action': 'Plan. Don’t Ban.', '/donate': 'Donate'
   };
   function updateRouteTitle() {
     const path = location.hash.slice(1) || '/';
     const sector = C.sectors.find(item => path === `/learn/${item.id}`);
     const chapter = chapterData.find(item => [item.route, item.route.replace(/\/$/, ''), `/learn/${item.slug}`].includes(path));
     if (routeTitles[path] || sector || chapter) document.title = `${chapter?.title || sector?.title || routeTitles[path]} — The Goodness of Hemp`;
-    if (path.startsWith('/learn/')) {
-      document.querySelectorAll('#site-nav > a').forEach(link => link.removeAttribute('aria-current'));
-      document.querySelector('#site-nav > a[href="#/learn"]')?.setAttribute('aria-current', 'page');
+    const learnNavigation = document.querySelector('.nav-learn');
+    const learnLink = learnNavigation?.querySelector('[data-nav-learn]');
+    const chapterLinks = [...(learnNavigation?.querySelectorAll('[data-nav-chapter]') || [])];
+    learnLink?.removeAttribute('aria-current');
+    chapterLinks.forEach(link => link.removeAttribute('aria-current'));
+    const isLearnRoute = path === '/learn' || path === '/why-hemp' || path.startsWith('/learn/');
+    learnNavigation?.classList.toggle('is-current', isLearnRoute);
+    if (chapter) {
+      chapterLinks.find(link => link.dataset.navChapter === chapter.route)?.setAttribute('aria-current', 'page');
+    } else if (isLearnRoute) {
+      learnLink?.setAttribute('aria-current', 'page');
     }
   }
 
@@ -459,6 +472,8 @@
   }
 
   window.addEventListener('hashchange', () => {
+    setLearnNavigationOpen(false);
+    syncMainNavigationToggleLabel();
     updateRouteTitle();
     requestAnimationFrame(focusRouteHeading);
     if (pendingRouteTarget) {
@@ -469,16 +484,6 @@
   });
 
   updateNavigation();
-  fetch('data/comparison.reference.json')
-    .then(response => response.ok ? response.json() : Promise.reject(new Error('Comparison unavailable')))
-    .then(data => {
-      comparison = data;
-      if ((location.hash.slice(1) || '/') === '/framework/compare') {
-        render(false);
-        updateRouteTitle();
-      }
-    })
-    .catch(() => { comparison = null; });
   render(false);
   updateRouteTitle();
 })();

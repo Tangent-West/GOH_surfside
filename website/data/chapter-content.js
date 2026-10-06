@@ -99,7 +99,7 @@ window.GOH_CHAPTERS = [
         kicker: 'Follow the crop',
         title: 'Continue from the field into food, feed and materials.',
         paragraphs: [
-          'The remaining chapters follow each pathway beyond the farm: seed into food and feed, stalk into materials, and flower into cannabinoid, wellness and beverage products.'
+          'Related chapters follow these pathways beyond the farm, tracing hemp into a growing range of foods, feeds, materials, wellness products and more.'
         ],
         links: [
           {label: 'Explore hemp food', route: '/learn/hemp-food/'},
@@ -639,7 +639,7 @@ window.GOH_CHAPTERS = [
         title: 'Regulate the category around clear safeguards.',
         paragraphs: [
           'The Goodness of Hemp supports a regulated pathway built around testing, accurate labels, manufacturing controls, traceability, responsible marketing and retail accountability. Age restrictions and packaging that reduces accidental consumption are central to that approach.',
-          'The campaign’s framework has discussed a proposed maximum of 3.7 milligrams of THC per serving for a federal sealed-beverage pathway. That number describes an advocacy proposal; it is not a statement of current nationwide law, a clinical safety finding or permission to sell a product in every jurisdiction.'
+          'The campaign’s public policy summary describes a responsible federal pathway for hemp beverages. Current proposed legislative language is available by request, remains subject to change and is not introduced legislation or current nationwide law.'
         ],
         bullets: [
           'Independent potency and contaminant testing',
