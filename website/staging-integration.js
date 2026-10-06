@@ -162,7 +162,8 @@
     const links = section.links?.length ? `<div class="button-row chapter-section-links">${section.links.map(item => `<a class="text-link" href="#${esc(item.route)}">${esc(item.label)} <span aria-hidden="true">↗</span></a>`).join('')}</div>` : '';
     const callout = section.callout ? `<aside class="chapter-callout"><strong>${esc(section.callout.title)}</strong><p>${esc(section.callout.text)}</p></aside>` : '';
     const copy = `<div class="chapter-section-copy"><p class="kicker">${esc(section.kicker || '')}</p><h2>${esc(section.title)}</h2>${renderParagraphs(section.paragraphs)}${renderBulletList(section.bullets)}${callout}${links}</div>`;
-    const image = section.image ? `<figure class="chapter-section-image"><img src="${esc(section.image)}" alt="${esc(section.imageAlt || '')}" loading="lazy" decoding="async"></figure>` : '';
+    const imageFit = section.imageFit === 'contain' ? ' chapter-section-image-contain' : '';
+    const image = section.image ? `<figure class="chapter-section-image${imageFit}"><img src="${esc(section.image)}" alt="${esc(section.imageAlt || '')}" loading="lazy" decoding="async"></figure>` : '';
     const cards = section.cards?.length ? `<div class="chapter-card-grid chapter-card-grid-${Math.min(section.cards.length, 4)}">${section.cards.map(chapterCard).join('')}</div>` : '';
     return `<section class="section chapter-section ${index % 2 ? 'paper' : ''}" id="${esc(section.id)}"><div class="wrap"><div class="chapter-section-lead${image ? ' has-image' : ''}${index % 2 && image ? ' image-right' : ''}">${copy}${image}</div>${cards}</div></section>`;
   }

@@ -218,6 +218,7 @@ dialog[open] { max-height: calc(100dvh - 32px); }
 .chapter-section-copy > p:not(.kicker) { max-width: 780px; margin-top: 18px; color: #59534d; font-size: 15px; line-height: 1.75; }
 .chapter-section-image { margin: 0; }
 .chapter-section-image img { width: 100%; height: 440px; object-fit: cover; }
+.chapter-section-image-contain img { padding: clamp(18px, 3vw, 42px); background: #fff; object-fit: contain; object-position: center; }
 .chapter-bullets { display: grid; gap: 9px; margin: 21px 0 0; padding-left: 19px; color: #4e4943; font-size: 12px; line-height: 1.55; }
 .chapter-callout { max-width: 760px; margin-top: 30px; padding: 24px 28px; border-left: 5px solid var(--lime); background: #fff; }
 .chapter-section:not(.paper) .chapter-callout { background: var(--paper); }

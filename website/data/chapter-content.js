@@ -287,6 +287,7 @@ window.GOH_CHAPTERS = [
         ],
         image: 'assets/chapters/feed/HFC_Logo.png',
         imageAlt: 'Hemp Feed Coalition logo',
+        imageFit: 'contain',
         callout: {
           title: 'Science before scale',
           text: 'The Goodness of Hemp supports a transparent, science-based pathway for additional uses where evidence can address animal safety, human-food safety, manufacturing consistency and appropriate labeling.'
