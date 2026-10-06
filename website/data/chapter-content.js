@@ -476,7 +476,7 @@ window.GOH_CHAPTERS = [
       }
     ],
     video: {
-      youtubeId: 'IXEIVMaMOfk',
+      youtubeId: 'W27A8U_x5ig',
       title: 'The GOOD Materials Story',
       caption: 'A click-to-play look at how a field-grown stalk becomes a manufacturing input.'
     },
@@ -654,7 +654,7 @@ window.GOH_CHAPTERS = [
       }
     ],
     video: {
-      youtubeId: 'IXEIVMaMOfk',
+      youtubeId: '5yCeN-puFt4',
       title: 'The GOOD Beverage Story',
       caption: 'A click-to-play introduction to formulation, consumer choice and responsible beverage policy.'
     },

@@ -11,6 +11,7 @@
   const originalMedia = routes['/media'];
   const originalShop = routes['/shop'];
   const chapterData = window.GOH_CHAPTERS || [];
+  const chapterVideoIds = new Set(chapterData.map(chapter => chapter.video?.youtubeId).filter(Boolean));
   const isStagingReview = new URLSearchParams(window.location.search).has('staging');
   let comparison = null;
   let pendingRouteTarget = null;
@@ -373,7 +374,7 @@
       event.preventDefault();
       event.stopImmediatePropagation();
       const id = target.dataset.chapterVideo;
-      if (!['IXEIVMaMOfk', 'IurJlRvXcGw'].includes(id)) return;
+      if (!chapterVideoIds.has(id)) return;
       window.GOH_VIDEO?.pause();
       modal(`<p class="kicker">WATCH THE GOODNESS OF HEMP</p><iframe class="media-frame" src="https://www.youtube-nocookie.com/embed/${esc(id)}?autoplay=1" title="Goodness of Hemp educational film" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe><p><a href="https://www.youtube.com/watch?v=${esc(id)}" target="_blank" rel="noopener noreferrer">Open directly in YouTube ↗</a></p><p class="micro">Video loads only after your click. Playback depends on YouTube availability and browser settings.</p>`);
       return;
