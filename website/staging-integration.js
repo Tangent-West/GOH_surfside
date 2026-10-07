@@ -133,7 +133,7 @@
     const orientation = restoreOrientationStrip(template);
     const pathways = restoreProductionPathways(template);
     const film = restoreFilm(template);
-    return heroSection.outerHTML + orientation + chapters({home: true}) + facts() + pathways + film + needs() + benefits() + who() + action();
+    return heroSection.outerHTML + orientation + facts() + chapters({home: true}) + pathways + film + needs() + benefits() + who() + action();
   }
 
   const chapterHref = chapter => `#${chapter.route}`;

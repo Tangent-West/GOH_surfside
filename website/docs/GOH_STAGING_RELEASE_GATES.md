@@ -12,7 +12,7 @@ The branch is suitable for review and handoff. It is intentionally `noindex,nofo
 - [x] Official original-site G favicon installed.
 - [x] Cream merchandise, flying disc, Plan. Don’t Ban., USDA facts, and global-supply-chain language integrated.
 - [x] Compact taupe orientation strip and original Grain / Fiber / Floral pathway section restored once in the requested homepage order.
-- [x] Chapter-first Home and Learn paths, four USDA facts, click-to-play film, responsive 18-logo wall, and the 18-term/nine-area Hemp Industry Appendix retained as distinct components.
+- [x] Homepage USDA data before chapters, direct chapter access from Learn, click-to-play film, responsive 18-logo wall, and the 18-term/nine-area Hemp Industry Appendix retained as distinct components.
 - [x] Donate and Tell Congress open shared in-page staging dialogs without charging or sending.
 - [x] Staging has no automated form submission, advocacy submission, payment, or public full-framework download.
 - [x] Desktop, tablet, and mobile screenshots captured.
