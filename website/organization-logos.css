@@ -59,7 +59,7 @@
   padding: 0;
 }
 
-.goh-organization-wall .goh-logo-frame > img[data-logo] {
+.goh-organization-wall .goh-logo-frame > [data-logo] {
   display: block;
   box-sizing: border-box;
   flex: 0 1 auto;
@@ -87,6 +87,20 @@
 .goh-logo-frame [data-logo="hita-az"],
 .goh-logo-frame [data-logo="bison-biocomposites"] { --goh-logo-height: 100px; }
 .goh-logo-frame [data-logo="hfc"] { --goh-logo-height: 101px; }
+.goh-logo-frame [data-logo="tusk-strategies"] { --goh-logo-max: 225px; }
+.goh-logo-frame [data-logo="cann"] { --goh-logo-max: 100px; --goh-logo-height: 102px; }
+.goh-logo-frame [data-logo="knd-labs"] { --goh-logo-max: 155px; --goh-logo-height: 102px; }
+.goh-logo-frame [data-logo="wynk"] { --goh-logo-max: 190px; --goh-logo-height: 90px; }
+
+.goh-organization-card .goh-logo-link {
+  border-radius: 1px;
+  text-decoration: none;
+}
+
+.goh-organization-card .goh-logo-link:focus-visible {
+  outline: 3px solid #7c8b3d;
+  outline-offset: 3px;
+}
 
 .goh-organization-wall .goh-organization-link {
   display: flex;

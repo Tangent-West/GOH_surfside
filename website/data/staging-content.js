@@ -269,8 +269,20 @@ window.GOH_STAGING_CONTENT = {
     ['homeland-hempcrete', 'Homeland Hempcrete', 'https://homelandhempcrete.com/', ['Building Materials', 'Fiber & Manufacturing'], 278, 108],
     ['osu-global-hemp-innovation-center', 'Oregon State University’s Global Hemp Innovation Center', 'https://agsci.oregonstate.edu/hemp', ['Research & Innovation', 'Agriculture & Animal Feed'], 288, 103],
     ['bison-biocomposites', 'Bison Biocomposites', 'https://bisonbiocomposites.com/', ['Building Materials', 'Fiber & Manufacturing'], 163, 144],
-    ['wherehouse-beverage', 'Wherehouse Beverage Co.', 'https://www.linkedin.com/company/whbco/', ['Wellness & Consumer Products', 'Beverages'], 142, 141, 'Company LinkedIn profile']
+    ['wherehouse-beverage', 'Wherehouse Beverage Co.', 'https://www.linkedin.com/company/whbco/', ['Wellness & Consumer Products', 'Beverages'], 142, 141, 'Company LinkedIn profile'],
+    ['tusk-strategies', 'Tusk Strategies', 'https://tuskstrategies.com/', ['Public Affairs & Strategy'], 800, 159],
+    ['cann', 'Cann', 'https://drinkcann.com/', ['Wellness & Consumer Products', 'Beverages'], 590, 451],
+    ['knd-labs', 'KND Labs', 'https://kndlabs.com/', ['Wellness & Consumer Products', 'Research & Innovation'], 300, 300],
+    ['wynk', 'WYNK', 'https://drinkwynk.com/', ['Wellness & Consumer Products', 'Beverages'], 325, 152]
   ].map(([id, displayName, displayWebsite, tags, width, height, destination]) => ({id, displayName, displayWebsite, tags, width, height, destination})),
+  // Supplied originals remain intact; the logo component trims only blank margins
+  // in its viewBox and renders them in the established muted-ink palette.
+  suppliedLogos: {
+    'tusk-strategies': {src: 'assets/logos/originals/tusk-strategies.png', viewBox: '0 0 800 159'},
+    'cann': {src: 'assets/logos/originals/cann.png', viewBox: '129 47 287 316'},
+    'knd-labs': {src: 'assets/logos/originals/knd-labs.png', viewBox: '18 56 263 188'},
+    'wynk': {src: 'assets/logos/originals/wynk.png', viewBox: '32 35 265 100'}
+  },
   sources: {
     usda: 'https://www.nass.usda.gov/Publications/Todays_Reports/reports/hempan26.pdf',
     fda: 'https://www.fda.gov/food/hfp-constituent-updates/fda-responds-three-gras-notices-hemp-seed-derived-ingredients-use-human-food',
