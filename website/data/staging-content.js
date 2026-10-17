@@ -253,6 +253,9 @@ window.GOH_STAGING_CONTENT = {
   ],
   candidates: [
     ['nha', 'National Hemp Association', 'https://nationalhempassociation.org/', ['Agriculture & Animal Feed', 'Fiber & Manufacturing'], 1164, 494],
+    ['ahpa', 'American Herbal Products Association (AHPA)', 'https://www.ahpa.org/', ['Wellness & Consumer Products', 'Public Affairs & Strategy'], 2000, 574],
+    ['agoge', 'Agoge', 'https://agoge.com/', ['Food & Nutrition', 'Wellness & Consumer Products'], 570, 570],
+    ['all-walks', 'All Walks', 'https://allwalks.com/', ['Agriculture & Animal Feed', 'Fiber & Manufacturing'], 500, 323],
     ['hemi', 'HEMI', 'https://hempinitiatives.org/', ['Agriculture & Animal Feed', 'Fiber & Manufacturing'], 432, 350],
     ['sorse', 'SōRSE Technology', 'https://sorsetech.com/', ['Wellness & Consumer Products', 'Beverages', 'Research & Innovation'], 612, 313],
     ['hfc', 'Hemp Feed Coalition', 'https://hempfeedcoalition.org/', ['Agriculture & Animal Feed', 'Research & Innovation'], 231, 189],
@@ -273,7 +276,12 @@ window.GOH_STAGING_CONTENT = {
     ['tusk-strategies', 'Tusk Strategies', 'https://tuskstrategies.com/', ['Public Affairs & Strategy'], 800, 159],
     ['cann', 'Cann', 'https://drinkcann.com/', ['Wellness & Consumer Products', 'Beverages'], 590, 451],
     ['knd-labs', 'KND Labs', 'https://kndlabs.com/', ['Wellness & Consumer Products', 'Research & Innovation'], 300, 300],
-    ['wynk', 'WYNK', 'https://drinkwynk.com/', ['Wellness & Consumer Products', 'Beverages'], 325, 152]
+    ['wynk', 'WYNK', 'https://drinkwynk.com/', ['Wellness & Consumer Products', 'Beverages'], 325, 152],
+    ['hemp-paper-company', 'Hemp Paper Company', 'https://hemppaperco.com/', ['Fiber & Manufacturing'], 3240, 1620],
+    ['marino', 'Marino', 'https://marinopr.com/', ['Public Affairs & Strategy'], 1200, 630],
+    ['hemptana', 'Hemptana', 'https://hemptana.com/', ['Agriculture & Animal Feed', 'Fiber & Manufacturing'], 600, 288],
+    ['cortez-coffee', 'Cortez Coffee Roasters', 'https://cortezcoffee.com/', ['Food & Nutrition', 'Beverages'], 500, 230],
+    ['sonoran-distribution', 'Sonoran Distribution', 'https://drinksonoran.com/', ['Wellness & Consumer Products', 'Beverages'], 225, 225]
   ].map(([id, displayName, displayWebsite, tags, width, height, destination]) => ({id, displayName, displayWebsite, tags, width, height, destination})),
   // Supplied originals remain intact; the logo component trims only blank margins
   // in its viewBox and renders them in the established muted-ink palette.
@@ -281,7 +289,15 @@ window.GOH_STAGING_CONTENT = {
     'tusk-strategies': {src: 'assets/logos/originals/tusk-strategies.png', viewBox: '0 0 800 159'},
     'cann': {src: 'assets/logos/originals/cann.png', viewBox: '129 47 287 316'},
     'knd-labs': {src: 'assets/logos/originals/knd-labs.png', viewBox: '18 56 263 188'},
-    'wynk': {src: 'assets/logos/originals/wynk.png', viewBox: '32 35 265 100'}
+    'wynk': {src: 'assets/logos/originals/wynk.png', viewBox: '32 35 265 100'},
+    'hemp-paper-company': {src: 'assets/logos/originals/hemp-paper-company.png', viewBox: '92 207 3056 1206', inkSource: 'alpha'},
+    'marino': {src: 'assets/logos/originals/marino.avif', viewBox: '104 188 992 244', opticalScale: 0.85},
+    'all-walks': {src: 'assets/logos/originals/all-walks.webp', viewBox: '64 47 383 214', inkSource: 'light'},
+    'hemptana': {src: 'assets/logos/originals/hemptana.webp', viewBox: '26 24 542 253', inkSource: 'alpha'},
+    'agoge': {src: 'assets/logos/originals/agoge.png', viewBox: '0 181 570 208', opticalScale: 0.95},
+    'cortez-coffee': {src: 'assets/logos/originals/cortez-coffee.webp', viewBox: '0 0 500 230', inkSource: 'alpha'},
+    'sonoran-distribution': {src: 'assets/logos/originals/sonoran-distribution.jpeg', viewBox: '17 91 191 55', inkGain: 3, inkCutoff: 0.2},
+    'ahpa': {src: 'assets/logos/originals/ahpa.png', viewBox: '0 0 2000 574', inkSource: 'light'}
   },
   sources: {
     usda: 'https://www.nass.usda.gov/Publications/Todays_Reports/reports/hempan26.pdf',

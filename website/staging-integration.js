@@ -105,13 +105,32 @@
 
   function organizationLogo(o) {
     const supplied = C.suppliedLogos?.[o.id];
-    if (!supplied) return `<img src="assets/logos/monochrome/${esc(o.id)}.png" alt="${esc(o.displayName)} logo" data-logo="${esc(o.id)}" width="${o.width}" height="${o.height}" loading="lazy" decoding="async">`;
+    // Balance the visible artwork's area, not the source canvas or longest edge.
+    // Shared caps keep tall symbols and long wordmarks inside the same logo frame.
+    const crop = supplied?.viewBox.split(/\s+/).map(Number);
+    const artworkWidth = crop ? crop[2] : o.width;
+    const artworkHeight = crop ? crop[3] : o.height;
+    const ratio = artworkWidth / artworkHeight;
+    const logoWidth = Math.min(Math.sqrt(12000 * ratio) * (supplied?.opticalScale || 1), 220, 100 * ratio);
+    const logoSize = `--goh-logo-width:${logoWidth.toFixed(2)}px;--goh-logo-height:${(logoWidth / ratio).toFixed(2)}px`;
+    if (!supplied) return `<img src="assets/logos/monochrome/${esc(o.id)}.png" alt="${esc(o.displayName)} logo" data-logo="${esc(o.id)}" style="${logoSize}" width="${o.width}" height="${o.height}" loading="lazy" decoding="async">`;
     // Use the original artwork, not a redrawn mark. Inverse luminance removes
     // the white background; the fixed RGB values match the existing #716b63 ink.
     // Tonal detail within multi-color symbols is retained in the same ink hue.
     // Mask the result to the source alpha so transparent originals stay transparent.
+    // White artwork on transparency uses its alpha directly instead of luminance.
+    // Light artwork on a dark backdrop uses positive luminance with a background
+    // cutoff (0.22), keeping that backdrop clear and retaining the mark's texture.
+    const alphaInk = supplied.inkSource === 'alpha';
+    const alphaMatrix = alphaInk ? '0 0 0 1 0' : supplied.inkSource === 'light' ? '0.272564 0.916923 0.092564 0 -0.282051' : '-0.2126 -0.7152 -0.0722 0 1';
+    // Optional contrast removes pale JPEG background noise without editing the asset.
+    const inkContrast = !alphaInk && supplied.inkGain ? `<feComponentTransfer><feFuncA type="linear" slope="${esc(supplied.inkGain)}" intercept="${esc(-(supplied.inkCutoff || 0))}"/></feComponentTransfer>` : '';
+    const tonalMask = alphaInk ? '' : '<feComponentTransfer><feFuncA type="gamma" amplitude="1" exponent="0.6" offset="0"/></feComponentTransfer><feComposite in2="SourceAlpha" operator="in"/>';
     const filterId = `goh-logo-ink-${o.id}`;
-    return `<svg xmlns="http://www.w3.org/2000/svg" data-logo="${esc(o.id)}" viewBox="${esc(supplied.viewBox)}" width="${o.width}" height="${o.height}" role="img" aria-label="${esc(o.displayName)} logo"><defs><filter id="${esc(filterId)}" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0.443137 0 0 0 0 0.419608 0 0 0 0 0.388235 -0.2126 -0.7152 -0.0722 0 1"/><feComponentTransfer><feFuncA type="gamma" amplitude="1" exponent="0.6" offset="0"/></feComponentTransfer><feComposite in2="SourceAlpha" operator="in"/></filter></defs><image href="${esc(supplied.src)}" width="${o.width}" height="${o.height}" filter="url(#${esc(filterId)})"/></svg>`;
+    const cropId = `goh-logo-crop-${o.id}`;
+    const [cropX, cropY, cropWidth, cropHeight] = crop;
+    // Enforce the crop even where preserveAspectRatio leaves letterbox space.
+    return `<svg xmlns="http://www.w3.org/2000/svg" data-logo="${esc(o.id)}" style="${logoSize}" viewBox="${esc(supplied.viewBox)}" width="${cropWidth}" height="${cropHeight}" role="img" aria-label="${esc(o.displayName)} logo"><defs><clipPath id="${esc(cropId)}"><rect x="${cropX}" y="${cropY}" width="${cropWidth}" height="${cropHeight}"/></clipPath><filter id="${esc(filterId)}" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0.443137 0 0 0 0 0.419608 0 0 0 0 0.388235 ${alphaMatrix}"/>${inkContrast}${tonalMask}</filter></defs><image href="${esc(supplied.src)}" width="${o.width}" height="${o.height}" filter="url(#${esc(filterId)})" clip-path="url(#${esc(cropId)})"/></svg>`;
   }
 
   function organizationCards() {
