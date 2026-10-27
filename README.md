@@ -10,3 +10,7 @@ This repository contains the Surfside handoff package:
 Open `index.html` for the simplified local gallery. The gallery uses individual image files directly and keeps display and social collections separate.
 
 The source folders remain intact so files can also be browsed directly.
+
+## Image content bank
+
+[Browse the searchable GOH Content Bank](https://tangent-west.github.io/GOH_surfside/GOH_Content_Bank/) for photographs, reference images, and video source records. See [content-bank instructions](GOH_Content_Bank/README.md) for team review and adding images.

@@ -1,0 +1,13 @@
+GOODNESS OF HEMP — CONTENT BANK FILTERS
+
+Open GOH_Content_Bank.html after extracting the ZIP. Use Content type for Fiber, Grain & food, Consumer products, Beverages and other subjects. Use Scene for Field & growing, Harvest, Farm equipment, Manufacturing & processing, Retail and other settings. Combine both dropdowns; for example Fiber + Harvest.
+
+Search also accepts asset IDs, filenames, topics and the original four-week planned uses. Export results saves the current selection as CSV. Reset filters returns to the working collection.
+
+Images can have multiple topic and scene labels. These are editorial search labels, not new assertions that a pictured crop is hemp or a product meets a regulatory standard. Source/context notes remain attached to each record. General farm images can support agriculture and crop-rotation stories.
+
+The default working collection excludes mapped duplicates, reference-only imagery and non-primary video variants. Include duplicates and references to see every catalog record. In original four-week plan / Not in original four-week plan refer to planning records, not confirmed publication history.
+
+CSV, JSON and SQLite contain the same new content_types, scenes and search_tags fields. SQLite also has the asset_tags table for tag lookups. Original category fields, source filenames and stable asset IDs are preserved.
+
+The standalone GOH_Content_Bank_Browser.html has embedded thumbnails so you can review it without extracting the photo archive. Source links in that standalone review copy can require account access. The full ZIP includes actual photograph files; original video records link to the source videos.

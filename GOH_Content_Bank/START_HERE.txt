@@ -1,0 +1,15 @@
+NEW: Content type and Scene dropdowns, multi-tag records and filtered CSV export. See BROWSING_GUIDE.txt.
+
+THE GOODNESS OF HEMP CONTENT BANK
+
+Open GOH_Content_Bank.html to browse and filter the imagery. Search by topic, filename, asset ID, or planned campaign use.
+
+The bank contains 327 image and video records: 21 exact duplicate uploads plus one visual duplicate map to a preferred source. 294 distinct photographs/reference images and 11 video files remain. Original photo files are included once, and the registry links to the uploaded original videos. The revised four-week social package contains the finished social MP4 versions.
+
+Originals contains supplied photographs. Reference_Only contains generated images and prior design references excluded from the active real-photo selection. Video variants retain the highest-resolution master, landscape version, and version with existing captions. The working view selects the captioned America 250 edition; choose Include duplicates and references to see all masters and variants.
+
+The catalogue is available as CSV, JSON, and SQLite. Planned use is separate from publication history. Nothing is marked as published. Record actual publication dates after posting.
+
+Choose the image for the story. General farmers and crop fields can support crop-rotation and agriculture messaging, but must not be identified as hemp growers or hemp fields without evidence. General textiles, food, retail, and livestock imagery also require accurate context. Animal imagery alone does not establish an authorized feed use.
+
+Retain Follow Goodness of Hemp on follow buttons and Paid for by National Hemp Association on advocacy materials. Keep source filenames and asset IDs when making future exports. Use a different main photograph for a new feed concept; reuse across a paired Story/email only when it helps recognition. Review the planned-use column before selecting the next month.

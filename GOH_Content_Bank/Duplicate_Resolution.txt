@@ -1,0 +1,32 @@
+GOH DUPLICATE RESOLUTION
+
+21 exact duplicate uploads and one additional visual duplicate are removed from the working photo selection. Uploaded originals are unchanged.
+
+20190501_155034(1).jpg -> 20190501_155034.jpg | Exact decoded image pixels or file bytes
+arek-adeoye-ljoCgjs63SM-unsplash(1).jpg -> arek-adeoye-ljoCgjs63SM-unsplash.jpg | Exact decoded image pixels or file bytes
+charles-robert-EJej_q7kq5g-unsplash(1).jpg -> charles-robert-EJej_q7kq5g-unsplash.jpg | Exact decoded image pixels or file bytes
+cosmin-ursea-fegbjcETI7Y-unsplash(20261019-214820).jpg -> cosmin-ursea-fegbjcETI7Y-unsplash (1).jpg | Exact decoded image pixels or file bytes
+drew-coffman-DzIt-fTYv4E-unsplash (1)(1).jpg -> drew-coffman-DzIt-fTYv4E-unsplash.jpg | Exact decoded image pixels or file bytes
+drew-coffman-DzIt-fTYv4E-unsplash (1).jpg -> drew-coffman-DzIt-fTYv4E-unsplash.jpg | Exact decoded image pixels or file bytes
+drew-coffman-DzIt-fTYv4E-unsplash(1).jpg -> drew-coffman-DzIt-fTYv4E-unsplash.jpg | Exact decoded image pixels or file bytes
+elsa-olofsson-uR_RU2MD2Lw-unsplash(1).jpg -> elsa-olofsson-uR_RU2MD2Lw-unsplash.jpg | Exact decoded image pixels or file bytes
+elsa-olofsson-Y4oPclDAHdQ-unsplash(1).jpg -> elsa-olofsson-Y4oPclDAHdQ-unsplash.jpg | Exact decoded image pixels or file bytes
+erica-marsland-huynh-Rvf2UJ3JO5U-unsplash(1).jpg -> erica-marsland-huynh-Rvf2UJ3JO5U-unsplash.jpg | Exact decoded image pixels or file bytes
+greenforce-staffing-bYZn_C-RswQ-unsplash(20261019-214820).jpg -> greenforce-staffing-bYZn_C-RswQ-unsplash (1).jpg | Exact decoded image pixels or file bytes
+guilherme-stecanella-8Vj1MXE1NCA-unsplash(1).jpg -> guilherme-stecanella-8Vj1MXE1NCA-unsplash.jpg | Exact decoded image pixels or file bytes
+hamza-bounaim-_VnJ1YFTZvQ-unsplash(1).jpg -> hamza-bounaim-_VnJ1YFTZvQ-unsplash.jpg | Exact decoded image pixels or file bytes
+Hemp Fiber harvest(2).jpg -> Hemp Fiber harvest(1).jpg | Exact decoded image pixels or file bytes
+jubeo-hernandez-ZRrWyUWSajQ-unsplash(1).jpg -> jubeo-hernandez-ZRrWyUWSajQ-unsplash.jpg | Exact decoded image pixels or file bytes
+maria-di-lorenzo-I87wTha03YY-unsplash(1).jpg -> maria-di-lorenzo-I87wTha03YY-unsplash.jpg | Exact decoded image pixels or file bytes
+mike-baker-q21lIp5i3mM-unsplash(1).jpg -> mike-baker-q21lIp5i3mM-unsplash.jpg | Exact decoded image pixels or file bytes
+olena-somak_ua-JMgHLbSn0Ss-unsplash(1).jpg -> olena-somak_ua-JMgHLbSn0Ss-unsplash.jpg | Exact decoded image pixels or file bytes
+sebastian-schuster-8dV8MvwtDvI-unsplash(2).jpg -> sebastian-schuster-8dV8MvwtDvI-unsplash(1).jpg | Same photograph alternate encoding or size reviewed visually
+tim-nohrer-REEcTYTmABo-unsplash(1).jpg -> tim-nohrer-REEcTYTmABo-unsplash.jpg | Exact decoded image pixels or file bytes
+toa-heftiba-2ey7dmVEQv4-unsplash(1).jpg -> toa-heftiba-2ey7dmVEQv4-unsplash.jpg | Exact decoded image pixels or file bytes
+y-n-y-n-MsojyemA_NE-unsplash(1).jpg -> y-n-y-n-MsojyemA_NE-unsplash.jpg | Exact decoded image pixels or file bytes
+
+VIDEO VARIANTS
+AMERICA 250 9x16.MOV -> AMERICA 250 9x16.mp4 | Lower resolution vertical master
+AMERICA 250 R2.mp4 -> AMERICA 250 9x16.mp4 | Landscape format variant
+The Goodness of Hemp® | America's Next Opportunity.mov -> AMERICA 250 9x16.mp4 | Vertical version with burned captions
+The captioned vertical, full-resolution vertical, and landscape versions have different uses; they are retained as variants, not removed.

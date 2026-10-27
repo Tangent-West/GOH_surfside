@@ -1,0 +1,32 @@
+{
+  "content_types": [
+    "Fiber",
+    "Grain & food",
+    "Consumer products",
+    "Beverages",
+    "Building materials",
+    "Agriculture & farming",
+    "Animals & feed",
+    "People & community",
+    "Research & testing",
+    "Advocacy & Americana",
+    "Campaign & brand",
+    "Supporting visuals",
+    "Reference only"
+  ],
+  "scenes": [
+    "Field & growing",
+    "Harvest",
+    "Farm equipment",
+    "Manufacturing & processing",
+    "Retail & informed choices",
+    "Product & material",
+    "People & everyday life",
+    "Research & laboratory",
+    "Landscape & nature",
+    "Civic & infrastructure",
+    "Campaign clip / graphic",
+    "Reference"
+  ],
+  "classification_note": "Editorial search labels describe themes and visible scenes. They do not verify crop identity, hemp content, product compliance, health outcomes or feed authorization. Original source context remains authoritative."
+}
