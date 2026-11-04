@@ -35,6 +35,11 @@ with (root / 'GOH_Asset_Catalog.csv').open('w', newline='', encoding='utf-8-sig'
         writer.writerow({k: json.dumps(v, ensure_ascii=False) if isinstance(v, (list, dict)) else v for k,v in r.items()})
 with sqlite3.connect(root / 'GOH_Content_Bank.sqlite') as db:
     columns = [row[1] for row in db.execute('PRAGMA table_info(assets)')]
+    for field in fields:
+        if field not in columns:
+            safe = field.replace('"', '""')
+            db.execute(f'ALTER TABLE assets ADD COLUMN "{safe}" TEXT')
+            columns.append(field)
     db.execute('DELETE FROM assets')
     db.execute('DELETE FROM asset_tags')
     for r in records:
