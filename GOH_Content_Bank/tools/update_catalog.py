@@ -12,6 +12,9 @@ assert len(ids) == len(set(ids)), 'Duplicate asset IDs'
 for r in records:
     assert r['canonical'] in ids, f"Unknown canonical ID: {r['id']}"
     assert (root / 'Thumbnails' / (r['canonical'] + '.jpg')).is_file(), f"Missing thumbnail: {r['id']}"
+    if r.get('open_asset') and not r['open_asset'].startswith(('https://', 'http://')):
+        view = (root / r['open_asset']).resolve()
+        assert root in view.parents and view.is_file(), f"Missing or unsafe browser copy: {r['id']}"
     asset = r.get('local_asset', '')
     if asset and not asset.startswith(('https://', 'http://')):
         path = (root / asset).resolve()
