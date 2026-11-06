@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Customize a Goodness of Hemp graphic</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f3f1e6;color:#111411;font-family:system-ui,sans-serif}
+    header{border-bottom:1px solid #b5b9a8;padding:28px max(20px,calc((100% - 1060px)/2));background:#111411;color:#fff}
+    header p{margin:0 0 7px;color:#cfed31;font-weight:800;font-size:.78rem;letter-spacing:.1em}
+    h1{margin:0;font-size:clamp(1.6rem,4vw,2.65rem);line-height:1.08;letter-spacing:-.04em}
+    main{margin:0 auto;max-width:1100px;padding:24px 20px 42px;display:grid;gap:24px;grid-template-columns:minmax(290px,1fr) minmax(260px,.9fr);align-items:start}
+    p{line-height:1.55}form{background:#fff;border:1px solid #c8ccbc;border-radius:14px;padding:20px}
+    label{display:block;font-weight:720;margin:0 0 12px}
+    input,textarea,select{display:block;width:100%;margin-top:5px;padding:9px;font:inherit;font-weight:450;border:1px solid #828b77;border-radius:5px;background:#fff;color:#111411}
+    input[type="range"]{padding:0;accent-color:#465611}input[type="file"]{font-size:.85rem}
+    textarea{min-height:76px;resize:vertical}fieldset{padding:0;border:0;margin:14px 0 0}fieldset[hidden]{display:none}
+    button{padding:11px 18px;font:inherit;font-weight:790;border-radius:99px;border:1px solid #111411;cursor:pointer;background:#cfed31;color:#111411}
+    button:disabled{opacity:.55;cursor:default}.quiet{background:#fff;margin-top:8px}.help{font-size:.88rem;font-weight:450;color:#485145;margin:5px 0 12px}
+    .preview{text-align:center}.preview h2{margin:0 0 8px;text-align:left;font-size:1.05rem}
+    canvas{display:block;width:auto;height:auto;max-width:100%;max-height:78vh;margin:0 auto;background:#242d22}
+    #status{font-size:.88rem;margin:9px 0 0;min-height:1.3em;color:#38452e}
+    @media(max-width:660px){main{grid-template-columns:1fr}.preview{order:-1}canvas{max-height:55vh}}
+  </style>
+</head>
+<body>
+<header>
+  <p>THE GOODNESS OF HEMP</p>
+  <h1>Make a coalition graphic your own.</h1>
+</header>
+<main>
+  <form id="controls">
+    <label>Graphic<select id="art"></select></label>
+    <label>Format
+      <select id="format">
+        <option value="feed">Feed · 1080 × 1350</option>
+        <option value="story">Story · 1080 × 1920</option>
+      </select>
+    </label>
+    <label>Your logo (optional)
+      <input id="logo" type="file" accept="image/png,image/jpeg,image/webp">
+      <span class="help">PNG, JPG or WebP. Use a mark that reads on white. It will appear beside GOH.</span>
+    </label>
+    <button class="quiet" type="button" id="clear-logo" hidden>Remove logo</button>
+    <fieldset id="quote-fields" hidden>
+      <label>Photo you have permission to share
+        <input id="photo" type="file" accept="image/png,image/jpeg,image/webp">
+      </label>
+      <label>Vertical photo position
+        <input id="focal" type="range" min="0" max="100" value="50">
+      </label>
+      <label>Approved quote
+        <textarea id="quote" maxlength="140" placeholder="What would December 11 change for your business?"></textarea>
+      </label>
+      <label>Speaker’s name<input id="name" maxlength="38" autocomplete="off"></label>
+      <label>Business and location<input id="org" maxlength="66" placeholder="Business · City, State" autocomplete="off"></label>
+    </fieldset>
+    <p class="help">Files stay in this browser. Add the Tell Congress link in your post or Story when you publish.</p>
+    <button type="submit" id="download" disabled>Download PNG</button>
+    <p id="status" role="status" aria-live="polite"></p>
+  </form>
+  <section class="preview">
+    <h2>Preview</h2>
+    <canvas id="preview" width="1080" height="1350" aria-label="Preview of the selected coalition graphic"></canvas>
+  </section>
+</main>
+<script src="customize-assets/media.js"></script>
+<script src="customize-assets/art.js"></script>
+<script>
+  (() => {
+    const form = document.querySelector("#controls");
+    const node = (id) => document.getElementById(id);
+    const art = node("art");
+    const format = node("format");
+    const quoteFields = node("quote-fields");
+    const canvas = node("preview");
+    const download = node("download");
+    const status = node("status");
+    const state = {};
+    let request = 0;
+
+    const groups = [
+      ["Weekly graphics", [...GOH_ART.shares, ...GOH_ART.alternates].map((x) => [x.id, x.date.slice(5) + " · " + x.title])],
+      ["Carousel slides", GOH_ART.slides.map((x) => [x.id, (x.group === "farm" ? "Nov. 17" : "Nov. 24") + " · Slide " + x.n + " · " + x.kicker])],
+      ["Countdown Stories", GOH_ART.countdowns.map((x) => [x.id, x.day + " · " + x.lines.join(" ")])],
+      ["Partner story", [["quote", "Editable business quote and photo"]]]
+    ];
+    for (const [label, values] of groups) {
+      const group = document.createElement("optgroup");
+      group.label = label;
+      for (const [id, title] of values) group.append(new Option(title, id));
+      art.append(group);
+    }
+    if (location.hash === "#quote") art.value = "quote";
+
+    async function render() {
+      const count = ++request;
+      const id = art.value;
+      const fixedStory = GOH_ART.countdowns.some((item) => item.id === id);
+      const fixedFeed = GOH_ART.slides.some((item) => item.id === id);
+      format.disabled = fixedStory || fixedFeed;
+      if (fixedStory) format.value = "story";
+      if (fixedFeed) format.value = "feed";
+      quoteFields.hidden = id !== "quote";
+      download.disabled = true;
+      try {
+        await GOH_ART.draw(canvas, id, format.value, {
+          ...state, quote: node("quote").value, name: node("name").value,
+          org: node("org").value, focal: Number(node("focal").value) / 100
+        });
+        if (count !== request) return;
+        const needsQuote = id === "quote" && !(state.photo && node("quote").value.trim() && node("name").value.trim() && node("org").value.trim());
+        download.disabled = Boolean(needsQuote);
+        status.textContent = needsQuote ? "Add your photo, quote, name and business to export." : "Ready to download.";
+      } catch (error) {
+        if (count === request) status.textContent = error.message;
+      }
+    }
+
+    async function readImage(input, key) {
+      const file = input.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      try {
+        state[key] = await GOH_ART.imageFrom(url);
+        if (key === "partner") node("clear-logo").hidden = false;
+        await render();
+      } catch (error) {
+        status.textContent = error.message;
+      } finally {
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    node("logo").addEventListener("change", (event) => readImage(event.target, "partner"));
+    node("photo").addEventListener("change", (event) => readImage(event.target, "photo"));
+    node("clear-logo").addEventListener("click", () => {
+      delete state.partner;
+      node("logo").value = "";
+      node("clear-logo").hidden = true;
+      render();
+    });
+    [art, format].forEach((item) => item.addEventListener("change", render));
+    ["quote", "name", "org", "focal"].forEach((id) => node(id).addEventListener("input", render));
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (download.disabled) return;
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "goh-" + art.value + "-" + format.value + ".png";
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }, "image/png");
+    });
+    render();
+  })();
+</script>
+</body>
+</html>

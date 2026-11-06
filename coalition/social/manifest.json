@@ -1,0 +1,215 @@
+{
+  "title": "The Goodness of Hemp Coalition Social Kit",
+  "timezone": "America/Phoenix",
+  "fundingDeadline": "2026-12-11",
+  "campaignEnd": "2026-12-10",
+  "customize": "customize.html",
+  "businessQuoteCustomizer": "customize.html#quote",
+  "captions": "captions.md",
+  "entries": [
+    {
+      "id": "launch",
+      "date": "2026-11-10",
+      "title": "30 days to speak up",
+      "feed": {
+        "path": "01-nov-10-launch/feed.png",
+        "format": "feed",
+        "width": 1080,
+        "height": 1350,
+        "alt": "A tractor beside tall hemp plants. 30 days to speak up. 30+ years to shape. Tell Congress before December 11."
+      },
+      "story": {
+        "path": "01-nov-10-launch/story.png",
+        "format": "story",
+        "width": 1080,
+        "height": 1920,
+        "alt": "A tractor beside tall hemp plants. 30 days to speak up. 30+ years to shape. Tell Congress before December 11."
+      }
+    },
+    {
+      "id": "farm",
+      "date": "2026-11-17",
+      "title": "Planting starts with a plan",
+      "feed": {
+        "path": "02-nov-17-farmers/feed.png",
+        "format": "feed",
+        "width": 1080,
+        "height": 1350,
+        "alt": "Rows of young plants under greenhouse hoops. Planting starts with a plan. Tell Congress."
+      },
+      "story": {
+        "path": "02-nov-17-farmers/story.png",
+        "format": "story",
+        "width": 1080,
+        "height": 1920,
+        "alt": "Rows of young plants under greenhouse hoops. Planting starts with a plan. Tell Congress."
+      },
+      "carousel": [
+        {
+          "path": "02-nov-17-farmers/feed.png",
+          "format": "feed",
+          "width": 1080,
+          "height": 1350,
+          "alt": "Rows of young plants under greenhouse hoops. Planting starts with a plan. Tell Congress."
+        },
+        {
+          "path": "02-nov-17-farmers/slide-02.png",
+          "format": "feed",
+          "width": 1080,
+          "height": 1350,
+          "alt": "A field of green hemp plants. Before the seed goes in the ground, farmers order seed, commit acreage and line up buyers."
+        },
+        {
+          "path": "02-nov-17-farmers/slide-03.png",
+          "format": "feed",
+          "width": 1080,
+          "height": 1350,
+          "alt": "Harvesters in a broad field. A crop needs a buyer. Uncertain rules can put farm and manufacturing plans on hold."
+        },
+        {
+          "path": "02-nov-17-farmers/slide-04.png",
+          "format": "feed",
+          "width": 1080,
+          "height": 1350,
+          "alt": "Give farmers time to plan. Ask Congress to include proposed hemp certainty language in the next federal funding bill."
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "date": "2026-11-24",
+      "title": "The businesses behind hemp",
+      "feed": {
+        "path": "03-nov-24-coalition/feed.png",
+        "format": "feed",
+        "width": 1080,
+        "height": 1350,
+        "alt": "Hands tending a tall hemp crop. The businesses behind hemp. Some hemp businesses could be forced to close. Tell Congress before December 11."
+      },
+      "story": {
+        "path": "03-nov-24-coalition/story.png",
+        "format": "story",
+        "width": 1080,
+        "height": 1920,
+        "alt": "Hands tending a tall hemp crop. The businesses behind hemp. Some hemp businesses could be forced to close. Tell Congress before December 11."
+      },
+      "carousel": [
+        {
+          "path": "03-nov-24-coalition/feed.png",
+          "format": "feed",
+          "width": 1080,
+          "height": 1350,
+          "alt": "Hands tending a tall hemp crop. The businesses behind hemp. Some hemp businesses could be forced to close. Tell Congress before December 11."
+        },
+        {
+          "path": "03-nov-24-coalition/slide-02.png",
+          "format": "feed",
+          "width": 1080,
+          "height": 1350,
+          "alt": "A worker’s hands tending hemp. A crop. A paycheck. A business built here. The new rules put real decisions in front of affected businesses."
+        },
+        {
+          "path": "03-nov-24-coalition/slide-03.png",
+          "format": "feed",
+          "width": 1080,
+          "height": 1350,
+          "alt": "Make sure Congress hears from us. Tell your representative what a workable plan for hemp would mean in your community."
+        }
+      ],
+      "reel": {
+        "path": "03-nov-24-coalition/reel.mp4",
+        "cover": "03-nov-24-coalition/reel-cover.png",
+        "transcript": "03-nov-24-coalition/reel-transcript.vtt",
+        "creatorGuide": "03-nov-24-coalition/record-your-story.md",
+        "width": 1080,
+        "height": 1920,
+        "alt": "Seventeen-second Goodness of Hemp campaign Reel with footage of hemp fields and processing, and on-screen text asking Congress to act before December 11."
+      },
+      "alternates": [
+        {
+          "id": "beverage",
+          "title": "The jobs behind the can",
+          "feed": {
+            "path": "03-nov-24-coalition/beverage-feed.png",
+            "format": "feed",
+            "width": 1080,
+            "height": 1350,
+            "alt": "Silver cans on a beverage production line. The jobs behind the can. New federal rules could take many hemp drinks off shelves. Tell Congress now, before December 11."
+          },
+          "story": {
+            "path": "03-nov-24-coalition/beverage-story.png",
+            "format": "story",
+            "width": 1080,
+            "height": 1920,
+            "alt": "Silver cans on a beverage production line. The jobs behind the can. New federal rules could take many hemp drinks off shelves. Tell Congress now, before December 11."
+          }
+        },
+        {
+          "id": "gummy",
+          "title": "Small dose. Big stakes.",
+          "feed": {
+            "path": "03-nov-24-coalition/gummy-feed.png",
+            "format": "feed",
+            "width": 1080,
+            "height": 1350,
+            "alt": "An adult holds a gummy and its package. Small dose. Big stakes. Many low-dose hemp gummies could lose federal hemp status. Tell Congress now, before December 11."
+          },
+          "story": {
+            "path": "03-nov-24-coalition/gummy-story.png",
+            "format": "story",
+            "width": 1080,
+            "height": 1920,
+            "alt": "An adult holds a gummy and its package. Small dose. Big stakes. Many low-dose hemp gummies could lose federal hemp status. Tell Congress now, before December 11."
+          }
+        }
+      ]
+    },
+    {
+      "id": "final",
+      "date": "2026-12-10",
+      "title": "Tell Congress today",
+      "feed": {
+        "path": "04-dec-10-final/feed.png",
+        "format": "feed",
+        "width": 1080,
+        "height": 1350,
+        "alt": "Tell Congress today. Federal deadline December 11. Today is the last day of the campaign push."
+      },
+      "story": {
+        "path": "04-dec-10-final/story.png",
+        "format": "story",
+        "width": 1080,
+        "height": 1920,
+        "alt": "Tell Congress today. Federal deadline December 11. Today is the last day of the campaign push."
+      }
+    }
+  ],
+  "countdown": [
+    {
+      "date": "2026-12-08",
+      "path": "countdown/dec-08-story.png",
+      "format": "story",
+      "width": 1080,
+      "height": 1920,
+      "alt": "December 8. Here’s how to speak up. Open Tell Congress, enter your address, review and send your message."
+    },
+    {
+      "date": "2026-12-09",
+      "path": "countdown/dec-09-story.png",
+      "format": "story",
+      "width": 1080,
+      "height": 1920,
+      "alt": "December 9. Bring one more voice. If you already contacted Congress, share the link with one person."
+    },
+    {
+      "date": "2026-12-10",
+      "path": "countdown/dec-10-story.png",
+      "format": "story",
+      "width": 1080,
+      "height": 1920,
+      "alt": "December 10. Tell Congress today. Federal deadline tomorrow. Your representative can still hear from you."
+    }
+  ],
+  "action": "https://takeaction.io/nationalhempassociation/tell-congress-support-the-goodness-of-hemp/",
+  "preview": "preview.jpg"
+}

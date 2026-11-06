@@ -1,0 +1,43 @@
+THE GOODNESS OF HEMP®
+PLAN. DON’T BAN.
+NHA × GOH coalition email kit
+
+OPEN THE KIT
+Extract the entire ZIP. Open any of the four HTML files in a browser to preview it. Keep the assets folder beside the templates. To send, open the same HTML file in a text or code editor and copy its source into your email platform.
+
+NHA TEAM
+1. Upload the six included assets to your email platform or public image host. Use its direct HTTPS image URLs to replace the matching assets/... values in each file’s img src attributes. Keep the original light or dark logo treatment for that email.
+2. In Constant Contact, create an email and choose Paste your own code or Paste HTML code. Paste the template into the editor. If the editor already supplies a document shell, paste the CSS into its head and the template’s body content between the existing body tags.
+3. Enter the subject and preheader below. Each HTML file already includes a hidden preheader. If your platform inserts the preview text through a separate field, delete the hidden preheader div to avoid duplicate preview text.
+4. Confirm that the platform footer shows your organization’s mailing address and unsubscribe link. In Constant Contact, the platform adds this footer. Check the design and links in a test send on desktop and mobile.
+
+COALITION PARTNERS
+Use the same files. Find SENDER LOGO START near the top. In that cell, replace the NHA image src with your hosted logo URL, the alt text with your organization’s name, and the link href with your website. Use a light or white mark in emails 01 and 04 and a dark mark in emails 02 and 03. The logo starts at 140 pixels wide with proportional height. Keep the GOH mark on the right, the Tell Congress button and campaign credit. There’s an optional intro slot just before the body copy. Set your own From name, reply-to, mailing address and unsubscribe footer in your sending platform.
+
+LINKS
+Tell Congress goes directly to NHA’s CongressPlus action page.
+https://takeaction.io/nationalhempassociation/tell-congress-support-the-goodness-of-hemp/
+The Week 3 film links to the video featured on the GOH homepage.
+https://www.youtube.com/watch?v=IXEIVMaMOfk
+
+CONSTANT CONTACT CUSTOM CODE HELP
+https://knowledgebase.constantcontact.com/email-digital-marketing/tutorials/KnowledgeBase/34400-Build-an-email-with-HTML-in-the-Custom-Code-editor?lang=en_US
+
+SUGGESTED SEND DATES AND INBOX COPY
+December 10 is the campaign’s final send and action target. December 11 is the current federal funding deadline referenced in the campaign. Confirm the policy timing before the final send.
+
+01 | November 10 | 01-Nov-10-Launch.html
+Subject — 30 days to help shape the next 30 years of hemp
+Preheader — Stand with American hemp farmers and tell Congress to give hemp a future it can plan for.
+
+02 | November 17 | 02-Nov-17-Farmers-and-Policy.html
+Subject — American hemp farmers need certainty
+Preheader — A practical plan can protect farmers, give consumers clear safeguards and keep American businesses growing.
+
+03 | November 24 | 03-Nov-24-Coalition-and-Film.html
+Subject — One plant. More reasons to come together.
+Preheader — From food and fiber to wellness and beverages, hemp connects more people than you might think.
+
+04 | December 10 | 04-Dec-10-Final-Push.html
+Subject — Today is our final push. Tell Congress.
+Preheader — Send your message today, ahead of the December 11 federal funding deadline.
